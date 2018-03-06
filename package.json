@@ -3,6 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@types/aphrodite": "^0.5.7",
+        "aphrodite": "^1.2.5",
         "d3": "5.0.0-rc.4",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
