@@ -1,4 +1,5 @@
 {
+    "defaultSeverity": "warning",
     "extends": ["tslint-react"],
     "rules": {
         "align": [true, "parameters", "arguments", "statements"],
@@ -56,7 +57,6 @@
         "quotemark": [true, "single", "jsx-double"],
         "radix": true,
         "semicolon": [false],
-        "severity": "warning",
         "switch-default": true,
 
         "trailing-comma": [false],
