@@ -1,25 +1,34 @@
 {
-  "name": "ethereum-visualizer",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "d3": "5.0.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-scripts-ts": "2.13.0"
-  },
-  "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
-  },
-  "devDependencies": {
-    "@types/d3": "^5.0.0",
-    "@types/jest": "^22.1.4",
-    "@types/node": "^9.4.6",
-    "@types/react": "^16.0.40",
-    "@types/react-dom": "^16.0.4",
-    "typescript": "^2.7.2"
-  }
+    "name": "ethereum-visualizer",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "d3": "5.0.0-rc.4",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0",
+        "react-scripts-ts": "2.13.0"
+    },
+    "scripts": {
+        "start": "react-scripts-ts start",
+        "build": "react-scripts-ts build",
+        "test": "react-scripts-ts test --env=jsdom",
+        "eject": "react-scripts-ts eject",
+        "precommit": "pretty-quick --staged"
+    },
+    "devDependencies": {
+        "@types/d3": "^5.0.0",
+        "@types/jest": "^22.1.4",
+        "@types/node": "^9.4.6",
+        "@types/react": "^16.0.40",
+        "@types/react-dom": "^16.0.4",
+        "husky": "^0.14.3",
+        "prettier": "1.11.1",
+        "pretty-quick": "^1.4.1",
+        "typescript": "^2.7.2"
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "semi": false,
+        "singleQuote": true
+    }
 }
