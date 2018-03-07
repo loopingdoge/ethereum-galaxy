@@ -50,16 +50,17 @@ class Graph extends React.Component<GraphProps> {
     }
 
     onZoom() {
-        const svg = d3.select('svg')
-        svg.attr('transform', d3.event.transform)
+        d3.select('g').attr('transform', d3.event.transform)
     }
 
     render() {
         const { width, height, graph } = this.props
         return (
             <svg width={width} height={height}>
-                <Links links={graph.links} />
-                <Nodes nodes={graph.nodes} simulation={this.simulation} />
+                <g width={width} height={height}>
+                    <Links links={graph.links} />
+                    <Nodes nodes={graph.nodes} simulation={this.simulation} />
+                </g>
             </svg>
         )
     }
