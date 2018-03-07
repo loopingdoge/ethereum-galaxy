@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Graph from './graph/Graph'
 import * as ethGraph from '../data/input.json'
-import { d3Types } from '../utils/types'
+import { D3Graph } from '../utils/types'
 import { Layout } from 'antd'
 import { css, StyleSheet } from 'aphrodite'
 
@@ -41,7 +41,7 @@ class App extends React.Component {
                         <Graph
                             width={'100%'}
                             height={'90%'}
-                            graph={(ethGraph as object) as d3Types.d3Graph}
+                            graph={(ethGraph as object) as D3Graph}
                         />
                     </Content>
                 </Layout>

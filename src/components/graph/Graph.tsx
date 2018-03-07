@@ -1,13 +1,13 @@
 import * as React from 'react'
 import * as d3 from 'd3'
-import { d3Types } from '../../utils/types'
+import { D3Graph, D3Node } from '../../utils/types'
 import Links from './Links'
 import Nodes from './Nodes'
 
 interface GraphProps {
     width: string
     height: string
-    graph: d3Types.d3Graph
+    graph: D3Graph
 }
 
 class Graph extends React.Component<GraphProps> {
@@ -18,7 +18,7 @@ class Graph extends React.Component<GraphProps> {
         super(props)
         this.simulation = d3
             .forceSimulation()
-            .force('link', d3.forceLink().id((d: d3Types.d3Node) => d.id))
+            .force('link', d3.forceLink().id((d: D3Node) => d.id))
             .force('charge', d3.forceManyBody().strength(-100))
             .force('center', d3.forceCenter(200, 200))
             .nodes(this.props.graph.nodes)

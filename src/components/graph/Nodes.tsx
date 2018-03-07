@@ -1,9 +1,9 @@
 import * as React from 'react'
 import * as d3 from 'd3'
-import { d3Types } from '../../utils/types'
+import { D3Node } from '../../utils/types'
 
 interface NodeProps {
-    node: d3Types.d3Node
+    node: D3Node
     color: string
 }
 
@@ -30,7 +30,7 @@ class Node extends React.Component<NodeProps> {
 }
 
 interface NodesProps {
-    nodes: d3Types.d3Node[]
+    nodes: D3Node[]
     simulation: any
 }
 
@@ -68,11 +68,9 @@ export default class Nodes extends React.Component<NodesProps> {
     }
 
     render() {
-        const nodes = this.props.nodes.map(
-            (node: d3Types.d3Node, index: number) => {
-                return <Node key={index} node={node} color={'#0082FF'} />
-            }
-        )
+        const nodes = this.props.nodes.map((node: D3Node, index: number) => {
+            return <Node key={index} node={node} color={'#0082FF'} />
+        })
 
         return <g className="nodes">{nodes}</g>
     }
