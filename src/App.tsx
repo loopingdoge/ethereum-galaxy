@@ -3,6 +3,7 @@ import './App.css'
 import Graph from './graph/Graph'
 import * as ethGraph from './test/input.json'
 import { d3Types } from './utils/types'
+import { Button } from 'antd'
 
 const logo = require('./logo.svg')
 
@@ -14,6 +15,7 @@ class App extends React.Component {
                     <img src={logo} className="App-logo" alt="logo" />
                     <h1 className="App-title">Welcome to React</h1>
                 </header>
+                <Button type="primary">Wewe</Button>
                 <p className="App-intro">
                     <Graph
                         width={400}

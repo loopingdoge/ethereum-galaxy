@@ -4,6 +4,7 @@
     "private": true,
     "dependencies": {
         "@types/aphrodite": "^0.5.7",
+        "antd": "^3.2.3",
         "aphrodite": "^1.2.5",
         "d3": "5.0.0-rc.4",
         "react": "^16.2.0",
@@ -11,9 +12,10 @@
         "react-scripts-ts": "2.13.0"
     },
     "scripts": {
-        "start": "react-scripts-ts start",
-        "build": "react-scripts-ts build",
-        "test": "react-scripts-ts test --env=jsdom",
+        "start": "react-app-rewired start --scripts-version react-scripts-ts",
+        "build": "react-app-rewired build --scripts-version react-scripts-ts",
+        "test":
+            "react-app-rewired test --env=jsdom --scripts-version react-scripts-ts",
         "eject": "react-scripts-ts eject",
         "precommit": "pretty-quick --staged"
     },
@@ -26,6 +28,8 @@
         "husky": "^0.14.3",
         "prettier": "1.11.1",
         "pretty-quick": "^1.4.1",
+        "react-app-rewired": "^1.5.0",
+        "ts-import-plugin": "^1.4.4",
         "typescript": "^2.7.2"
     },
     "prettier": {
