@@ -10,8 +10,13 @@ interface GraphProps {
     graph: D3Graph
 }
 
+// var zoom = d3v4.zoom().on('zoom', zoomed)
+// gMain.call(zoom);
+// function zoomed() {
+//     gDraw.attr('transform', d3v4.event.transform);
+// }
 class Graph extends React.Component<GraphProps> {
-    ref: SVGSVGElement
+    svg: d3.Selection<SVGElement, {}, HTMLElement, any>
     simulation: any
 
     constructor(props: GraphProps) {
@@ -19,7 +24,7 @@ class Graph extends React.Component<GraphProps> {
         this.simulation = d3
             .forceSimulation()
             .force('link', d3.forceLink().id((d: D3Node) => d.id))
-            .force('charge', d3.forceManyBody().strength(-100))
+            .force('charge', d3.forceManyBody().strength(-20))
             .force('center', d3.forceCenter(200, 200))
             .nodes(this.props.graph.nodes)
 
@@ -27,6 +32,7 @@ class Graph extends React.Component<GraphProps> {
     }
 
     componentDidMount() {
+        const svg = d3.select('svg')
         const node = d3.selectAll('.node')
         const link = d3.selectAll('.link')
 
@@ -39,12 +45,19 @@ class Graph extends React.Component<GraphProps> {
 
             node.attr('cx', (d: any) => d.x).attr('cy', (d: any) => d.y)
         })
+
+        svg.call(d3.zoom().on('zoom', this.onZoom))
+    }
+
+    onZoom() {
+        const svg = d3.select('svg')
+        svg.attr('transform', d3.event.transform)
     }
 
     render() {
         const { width, height, graph } = this.props
         return (
-            <svg className="container" width={width} height={height}>
+            <svg width={width} height={height}>
                 <Links links={graph.links} />
                 <Nodes nodes={graph.nodes} simulation={this.simulation} />
             </svg>
