@@ -18,12 +18,7 @@ class Graph extends React.Component<GraphProps> {
         super(props)
         this.simulation = d3
             .forceSimulation()
-            .force(
-                'link',
-                d3.forceLink().id(function(d: d3Types.d3Node) {
-                    return d.id
-                })
-            )
+            .force('link', d3.forceLink().id((d: d3Types.d3Node) => d.id))
             .force('charge', d3.forceManyBody().strength(-100))
             .force(
                 'center',
@@ -34,37 +29,19 @@ class Graph extends React.Component<GraphProps> {
         this.simulation.force('link').links(this.props.graph.links)
     }
 
-    // componentDidMount() {
-    // }
     componentDidMount() {
         const node = d3.selectAll('.node')
         const link = d3.selectAll('.link')
 
-        this.simulation.nodes(this.props.graph.nodes).on('tick', ticked)
-
-        function ticked() {
+        this.simulation.nodes(this.props.graph.nodes).on('tick', () => {
             link
-                .attr('x1', function(d: any) {
-                    return d.source.x
-                })
-                .attr('y1', function(d: any) {
-                    return d.source.y
-                })
-                .attr('x2', function(d: any) {
-                    return d.target.x
-                })
-                .attr('y2', function(d: any) {
-                    return d.target.y
-                })
+                .attr('x1', (d: any) => d.source.x)
+                .attr('y1', (d: any) => d.source.y)
+                .attr('x2', (d: any) => d.target.x)
+                .attr('y2', (d: any) => d.target.y)
 
-            node
-                .attr('cx', function(d: any) {
-                    return d.x
-                })
-                .attr('cy', function(d: any) {
-                    return d.y
-                })
-        }
+            node.attr('cx', (d: any) => d.x).attr('cy', (d: any) => d.y)
+        })
     }
 
     render() {
@@ -75,16 +52,6 @@ class Graph extends React.Component<GraphProps> {
                 <Nodes nodes={graph.nodes} simulation={this.simulation} />
             </svg>
         )
-        // const { width, height } = this.props
-        // return (
-        //     <svg width={width} height={height} />
-        // )
-        // <svg
-        //     className="container"
-        //     ref={(ref: SVGSVGElement) => this.ref = ref}
-        //     width={this.props.width}
-        //     height={this.props.height}
-        // />
     }
 }
 
