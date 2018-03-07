@@ -1,5 +1,8 @@
 import * as React from 'react'
 import './App.css'
+import Graph from './graph/Graph'
+import * as ethGraph from './test/input.json'
+import { d3Types } from './utils/types'
 
 const logo = require('./logo.svg')
 
@@ -12,8 +15,11 @@ class App extends React.Component {
                     <h1 className="App-title">Welcome to React</h1>
                 </header>
                 <p className="App-intro">
-                    To get started, edit <code>src/App.tsx</code> and save to
-                    reload.
+                    <Graph
+                        width={400}
+                        height={400}
+                        graph={(ethGraph as object) as d3Types.d3Graph}
+                    />
                 </p>
             </div>
         )
