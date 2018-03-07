@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as d3 from 'd3'
-import { d3Types } from '../utils/types'
+import { d3Types } from '../../utils/types'
 
 interface LinkProps {
     link: d3Types.d3Link
