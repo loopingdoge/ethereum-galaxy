@@ -15,10 +15,11 @@ class Node extends React.Component<NodeProps> {
     }
 
     render() {
+        const { balance } = this.props.node
         return (
             <circle
                 className="node"
-                r={5}
+                r={balance}
                 fill={this.props.color}
                 ref={(ref: SVGCircleElement) => (this.ref = ref)}
             >

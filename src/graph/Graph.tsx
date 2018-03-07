@@ -5,8 +5,8 @@ import Links from './Links'
 import Nodes from './Nodes'
 
 interface GraphProps {
-    width: number
-    height: number
+    width: string
+    height: string
     graph: d3Types.d3Graph
 }
 
@@ -20,10 +20,7 @@ class Graph extends React.Component<GraphProps> {
             .forceSimulation()
             .force('link', d3.forceLink().id((d: d3Types.d3Node) => d.id))
             .force('charge', d3.forceManyBody().strength(-100))
-            .force(
-                'center',
-                d3.forceCenter(this.props.width / 2, this.props.height / 2)
-            )
+            .force('center', d3.forceCenter(200, 200))
             .nodes(this.props.graph.nodes)
 
         this.simulation.force('link').links(this.props.graph.links)

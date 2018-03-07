@@ -14,11 +14,12 @@ class Link extends React.Component<LinkProps> {
     }
 
     render() {
+        const { link } = this.props
         return (
             <line
                 className="link"
                 ref={(ref: SVGLineElement) => (this.ref = ref)}
-                strokeWidth={1}
+                strokeWidth={link.amount / 5}
                 stroke={'#bcd465'}
             />
         )
