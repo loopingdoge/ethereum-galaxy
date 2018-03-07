@@ -1,13 +1,13 @@
 export namespace d3Types {
     export type d3Node = {
         id: string
-        group: number
+        balance: number
     }
 
     export type d3Link = {
         source: string
         target: string
-        value: number
+        amount: number
     }
 
     export type d3Graph = {
