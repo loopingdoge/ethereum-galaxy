@@ -1,7 +1,5 @@
 import * as React from 'react'
 import Graph from './graph/Graph'
-import * as ethGraph from '../data/input.json'
-import { D3Graph } from '../utils/types'
 import { Layout } from 'antd'
 import { css, StyleSheet } from 'aphrodite'
 
@@ -38,11 +36,7 @@ class App extends React.Component {
                         <Sidebar />
                     </Sider>
                     <Content className={css(styles.expand)}>
-                        <Graph
-                            width={'100%'}
-                            height={'90%'}
-                            graph={(ethGraph as object) as D3Graph}
-                        />
+                        <Graph width={'100%'} height={'100%'} />
                     </Content>
                 </Layout>
             </Layout>
