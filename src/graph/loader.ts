@@ -51,9 +51,12 @@ const loadGraph = (name: string) => {
     }
 
     const loadLinks = () => {
-        return getBinary(`./${name}/links.bin`).then((buffer: Int32Array) => {
-            asyncFor(buffer, parseLinks, () => console.log('finiti i link'))
-        })
+        return getBinary(`./${name}/links.bin`).then(
+            (buffer: Int32Array) =>
+                new Promise((resolve, reject) => {
+                    asyncFor(buffer, parseLinks, () => resolve('finiti i link'))
+                })
+        )
     }
 
     const convertToGraph = () =>
