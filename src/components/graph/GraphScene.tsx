@@ -5,6 +5,8 @@ import loadGraph from '../../graph/loader'
 import Renderer from '../../graph/renderer'
 import { Graph } from '../../utils/types'
 
+import config from '../../config'
+
 const styles = StyleSheet.create({
     graphContainer: {
         width: '100%',
@@ -52,6 +54,11 @@ class GraphScene extends React.Component<GraphSceneProps, GraphSceneState> {
     renderGraph(graphId: string) {
         loadGraph(graphId).then((graph: Graph) => {
             this.renderer.reset()
+            const { pos, lookAt } = config.camera
+            this.renderer.setCamera({
+                pos,
+                lookAt
+            })
             this.renderer.render(graph)
         })
     }
