@@ -6,7 +6,6 @@
         "@types/aphrodite": "^0.5.7",
         "antd": "^3.2.3",
         "aphrodite": "^1.2.5",
-        "d3": "5.0.0-rc.4",
         "rafor": "^1.0.2",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
@@ -22,7 +21,6 @@
         "precommit": "pretty-quick --staged"
     },
     "devDependencies": {
-        "@types/d3": "^5.0.0",
         "@types/jest": "^22.1.4",
         "@types/node": "^9.4.6",
         "@types/react": "^16.0.40",
