@@ -3,6 +3,7 @@ import { css, StyleSheet } from 'aphrodite'
 
 import loadGraph from '../../graph/loader'
 import Renderer from '../../graph/renderer'
+import { Graph } from '../../utils/types'
 
 const styles = StyleSheet.create({
     graphContainer: {
@@ -11,16 +12,16 @@ const styles = StyleSheet.create({
         background: 'blue'
     }
 })
-interface GraphProps {
+interface GraphSceneProps {
     width: string
     height: string
 }
 
-class Graph extends React.Component<GraphProps> {
+class GraphScene extends React.Component<GraphSceneProps> {
     container: HTMLDivElement
 
     componentDidMount() {
-        loadGraph('eth-h18').then(graph => {
+        loadGraph('eth-h18').then((graph: Graph) => {
             const renderer = new Renderer(this.container)
             renderer.render(graph)
         })
@@ -36,4 +37,4 @@ class Graph extends React.Component<GraphProps> {
     }
 }
 
-export default Graph
+export default GraphScene

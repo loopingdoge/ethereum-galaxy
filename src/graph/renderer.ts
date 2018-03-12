@@ -1,4 +1,5 @@
 import * as unrender from 'unrender'
+import { Graph } from '../utils/types'
 
 const distance = (
     x1: number,
@@ -9,7 +10,7 @@ const distance = (
     z2: number
 ) => (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2)
 
-const computePosisitionsAndColors = (graph: any) => {
+const computePosisitionsAndColors = (graph: Graph) => {
     let jsPos = []
     let jsColors = []
 
@@ -55,13 +56,13 @@ const computePosisitionsAndColors = (graph: any) => {
 
 class Renderer {
     renderer: any
-    graph: any
+    graph: Graph
 
     constructor(container: HTMLDivElement) {
         this.renderer = unrender(container)
     }
 
-    render(graph: any) {
+    render(graph: Graph) {
         this.graph = graph
 
         const { positions, colors } = computePosisitionsAndColors(this.graph)

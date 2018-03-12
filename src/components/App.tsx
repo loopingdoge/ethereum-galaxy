@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Graph from './graph/Graph'
+import GraphScene from './graph/GraphScene'
 import { Layout } from 'antd'
 import { css, StyleSheet } from 'aphrodite'
 
@@ -36,7 +36,7 @@ class App extends React.Component {
                         <Sidebar />
                     </Sider>
                     <Content className={css(styles.expand)}>
-                        <Graph width={'100%'} height={'100%'} />
+                        <GraphScene width={'100%'} height={'100%'} />
                     </Content>
                 </Layout>
             </Layout>
