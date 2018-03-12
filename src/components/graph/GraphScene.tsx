@@ -51,6 +51,7 @@ class GraphScene extends React.Component<GraphSceneProps, GraphSceneState> {
 
     renderGraph(graphId: string) {
         loadGraph(graphId).then((graph: Graph) => {
+            this.renderer.reset()
             this.renderer.render(graph)
         })
     }

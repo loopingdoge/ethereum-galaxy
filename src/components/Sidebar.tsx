@@ -8,9 +8,6 @@ const styles = StyleSheet.create({
     }
 })
 
-// const Sidebar = () => (
-//     <div>Qua pensavo di metterci i controlli tipo filtri, date picker, etc</div>
-// )
 interface SidebarProps {
     selectGraph: (graphId: string) => void
 }

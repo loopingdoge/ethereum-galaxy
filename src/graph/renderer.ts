@@ -57,8 +57,10 @@ const computePosisitionsAndColors = (graph: Graph) => {
 class Renderer {
     renderer: any
     graph: Graph
+    container: HTMLDivElement
 
     constructor(container: HTMLDivElement) {
+        this.container = container
         this.renderer = unrender(container)
     }
 
@@ -103,6 +105,11 @@ class Renderer {
             unrender.THREE.LinePieces
         )
         scene.add(linkMesh)
+    }
+
+    reset() {
+        this.renderer.destroy()
+        this.renderer = unrender(this.container)
     }
 }
 
