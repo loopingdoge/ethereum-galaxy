@@ -5,6 +5,13 @@ import { distance, computePosisitionsAndColors } from '../utils/renderer'
 
 import config from '../config'
 
+export interface HitTestHandlers {
+    handleOver: (e: any) => any
+    handleClick: (e: any) => any
+    handleDblClick: (e: any) => any
+    hitTestReady: (e: any) => any
+}
+
 class Renderer {
     renderer: any
     graph: Graph
@@ -34,17 +41,24 @@ class Renderer {
         this.renderer = unrender(this.container)
     }
 
-    setCamera(camConfig: any) {
+    cameraConfig(camConfig?: any) {
         const camera = this.renderer.camera()
         const { pos, lookAt } = camConfig
-        if (pos) camera.position.set(pos.x, pos.y, pos.z)
-        if (lookAt)
+        if (pos) {
+            camera.position.set(pos.x, pos.y, pos.z)
+        }
+        if (lookAt) {
             camera.quaternion.set(lookAt.x, lookAt.y, lookAt.z, lookAt.w)
+        }
+        return camera
     }
 
-    getCamera() {
-        const camera = this.renderer.camera()
-        return camera
+    configHitTest(hitTestConfig: HitTestHandlers) {
+        // hitTest = renderer.hitTest();
+        // hitTest.on('over', handleOver);
+        // hitTest.on('click', handleClick);
+        // hitTest.on('dblclick', handleDblClick);
+        // hitTest.on('hitTestReady', adjustMovementSpeed);
     }
 
     _renderNodes(positions: Int32Array) {

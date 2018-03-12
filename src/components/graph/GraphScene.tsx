@@ -55,7 +55,7 @@ class GraphScene extends React.Component<GraphSceneProps, GraphSceneState> {
         loadGraph(graphId).then((graph: Graph) => {
             this.renderer.reset()
             const { pos, lookAt } = config.camera
-            this.renderer.setCamera({
+            this.renderer.cameraConfig({
                 pos,
                 lookAt
             })
