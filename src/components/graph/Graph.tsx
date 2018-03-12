@@ -2,7 +2,7 @@ import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 
 import loadGraph from '../../graph/loader'
-import renderGraph from '../../graph/render'
+import Renderer from '../../graph/renderer'
 
 const styles = StyleSheet.create({
     graphContainer: {
@@ -18,9 +18,11 @@ interface GraphProps {
 
 class Graph extends React.Component<GraphProps> {
     container: HTMLDivElement
+
     componentDidMount() {
         loadGraph('eth-h18').then(graph => {
-            renderGraph(graph, this.container)
+            const renderer = new Renderer(this.container)
+            renderer.render(graph)
         })
     }
 

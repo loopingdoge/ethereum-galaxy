@@ -53,23 +53,31 @@ const computePosisitionsAndColors = (graph: any) => {
     }
 }
 
-const render = (graph: any, container: HTMLDivElement) => {
-    const renderer = unrender(container)
+class Renderer {
+    renderer: any
+    graph: any
 
-    const render = () => {
-        const { positions, colors } = computePosisitionsAndColors(graph)
+    constructor(container: HTMLDivElement) {
+        this.renderer = unrender(container)
+    }
 
-        renderNodes(graph.positions)
-        renderLinks(positions, colors)
+    render(graph: any) {
+        this.graph = graph
+
+        const { positions, colors } = computePosisitionsAndColors(this.graph)
+
+        this.renderNodes(this.graph.positions)
+        this.renderLinks(positions, colors)
+
         console.log('RENDERED')
     }
 
-    const renderNodes = (positions: Int32Array) => {
-        renderer.particles(positions)
+    renderNodes(positions: Int32Array) {
+        this.renderer.particles(positions)
     }
 
-    const renderLinks = (positions: Float32Array, colors: Float32Array) => {
-        const scene = renderer.scene()
+    renderLinks(positions: Float32Array, colors: Float32Array) {
+        const scene = this.renderer.scene()
         const geometry = new unrender.THREE.BufferGeometry()
         const material = new unrender.THREE.LineBasicMaterial({
             vertexColors: unrender.THREE.VertexColors,
@@ -95,8 +103,6 @@ const render = (graph: any, container: HTMLDivElement) => {
         )
         scene.add(linkMesh)
     }
-
-    render()
 }
 
-export default render
+export default Renderer
