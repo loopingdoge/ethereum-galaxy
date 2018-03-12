@@ -1,4 +1,5 @@
 import * as asyncFor from 'rafor'
+import config from '../config'
 
 function getBinary(url: string) {
     return new Promise((resolve, reject) => {
@@ -28,7 +29,7 @@ const loadGraph = (name: string) => {
     inLinks = []
 
     const loadPositions = () => {
-        return getBinary(`./${name}/positions.bin`).then(
+        return getBinary(`${config.graphsBaseUrl}/${name}/positions.bin`).then(
             (buffer: Int32Array) => {
                 positions = buffer
             }
@@ -51,7 +52,7 @@ const loadGraph = (name: string) => {
     }
 
     const loadLinks = () => {
-        return getBinary(`./${name}/links.bin`).then(
+        return getBinary(`${config.graphsBaseUrl}/${name}/links.bin`).then(
             (buffer: Int32Array) =>
                 new Promise((resolve, reject) => {
                     asyncFor(buffer, parseLinks, () => resolve('finiti i link'))
