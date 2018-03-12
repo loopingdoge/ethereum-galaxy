@@ -4,9 +4,13 @@ import config from '../config'
 function getBinary(url: string) {
     return new Promise((resolve, reject) => {
         const req = new XMLHttpRequest()
-        req.onload = (e: any) => {
-            var buffer = new Int32Array(req.response)
-            resolve(buffer)
+        req.onload = (ev: Event) => {
+            if (req.status == 200) {
+                var buffer = new Int32Array(req.response)
+                resolve(buffer)
+            } else {
+                reject('Error fetching: ' + url)
+            }
         }
         req.open('GET', url, true)
         req.responseType = 'arraybuffer'
@@ -14,10 +18,27 @@ function getBinary(url: string) {
     })
 }
 
+function getJson(url: string) {
+    return new Promise((resolve, reject) => {
+        const req = new XMLHttpRequest()
+        req.onload = (ev: Event) => {
+            if (req.status == 200) {
+                resolve(req.response)
+            } else {
+                reject('Error fetching: ' + url)
+            }
+        }
+        req.open('GET', url, true)
+        req.responseType = 'json'
+        req.send()
+    })
+}
+
 const loadGraph = (name: string) => {
     // TODO Progress
 
-    let positions: any // TODO labels
+    let positions: any
+    let labels: string[]
     let outLinks: any[]
     let inLinks: any[]
 
@@ -60,21 +81,26 @@ const loadGraph = (name: string) => {
         )
     }
 
+    const loadLabels = () => {
+        return getJson(`${config.graphsBaseUrl}/${name}/labels.json`).then(
+            (buffer: string[]) => (labels = buffer)
+        )
+    }
+
     const convertToGraph = () =>
         new Promise((resolve, reject) =>
             resolve({
                 positions,
+                labels,
                 outLinks,
                 inLinks
             })
         )
 
-    return (
-        loadPositions()
-            .then(loadLinks)
-            // .then(loadLabels)
-            .then(convertToGraph)
-    )
+    return loadPositions()
+        .then(loadLinks)
+        .then(loadLabels)
+        .then(convertToGraph)
 }
 
 export default loadGraph
