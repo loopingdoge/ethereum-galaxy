@@ -18,13 +18,40 @@ interface GraphSceneProps {
     height: string
 }
 
-class GraphScene extends React.Component<GraphSceneProps> {
+interface GraphSceneState {
+    graphId: string
+}
+class GraphScene extends React.Component<GraphSceneProps, GraphSceneState> {
     container: HTMLDivElement
+    renderer: Renderer
+
+    constructor(props: GraphSceneProps) {
+        super(props)
+        this.state = {
+            graphId: props.graphId
+        }
+        this.renderGraph = this.renderGraph.bind(this)
+    }
 
     componentDidMount() {
-        loadGraph(this.props.graphId).then((graph: Graph) => {
-            const renderer = new Renderer(this.container)
-            renderer.render(graph)
+        setTimeout(() => {
+            this.renderer = new Renderer(this.container)
+            this.renderGraph(this.props.graphId)
+        }, 1)
+    }
+
+    componentWillReceiveProps(newProps: GraphSceneProps) {
+        if (newProps.graphId !== this.props.graphId) {
+            this.setState({
+                graphId: newProps.graphId
+            })
+            this.renderGraph(newProps.graphId)
+        }
+    }
+
+    renderGraph(graphId: string) {
+        loadGraph(graphId).then((graph: Graph) => {
+            this.renderer.render(graph)
         })
     }
 
