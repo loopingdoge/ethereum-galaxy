@@ -1,12 +1,9 @@
 import * as React from 'react'
 import GraphScene from './graph/GraphScene'
-import { Layout } from 'antd'
 import { css, StyleSheet } from 'aphrodite'
 
 import Navbar from './Navbar'
 import Sidebar from './Sidebar'
-
-const { Header, Content, Sider } = Layout
 
 const styles = StyleSheet.create({
     expand: {
@@ -41,28 +38,18 @@ class App extends React.Component<{}, AppState> {
             ...this.state,
             graphId
         })
-        console.log(this.state.graphId)
     }
 
     render() {
         return (
-            <Layout className={css(styles.expand)}>
-                <Header>
-                    <Navbar />
-                </Header>
-                <Layout>
-                    <Sider className={css(styles.sider)} width={350}>
-                        <Sidebar selectGraph={this.selectGraph} />
-                    </Sider>
-                    <Content className={css(styles.expand)}>
-                        <GraphScene
-                            width={'100%'}
-                            height={'100%'}
-                            graphId={this.state.graphId}
-                        />
-                    </Content>
-                </Layout>
-            </Layout>
+            <div className={css(styles.expand)}>
+                <Sidebar selectGraph={this.selectGraph} />
+                <GraphScene
+                    width={'100%'}
+                    height={'100%'}
+                    graphId={this.state.graphId}
+                />
+            </div>
         )
     }
 }
