@@ -24,7 +24,26 @@ const styles = StyleSheet.create({
     }
 })
 
-class App extends React.Component {
+interface AppState {
+    graphId: string
+}
+
+class App extends React.Component<{}, AppState> {
+    constructor(props: any) {
+        super(props)
+        this.state = {
+            graphId: 'eth-1h'
+        }
+    }
+
+    selectGraph = (graphId: string) => {
+        this.setState({
+            ...this.state,
+            graphId
+        })
+        console.log(this.state.graphId)
+    }
+
     render() {
         return (
             <Layout className={css(styles.expand)}>
@@ -33,10 +52,14 @@ class App extends React.Component {
                 </Header>
                 <Layout>
                     <Sider className={css(styles.sider)} width={350}>
-                        <Sidebar />
+                        <Sidebar selectGraph={this.selectGraph} />
                     </Sider>
                     <Content className={css(styles.expand)}>
-                        <GraphScene width={'100%'} height={'100%'} />
+                        <GraphScene
+                            width={'100%'}
+                            height={'100%'}
+                            graphId={this.state.graphId}
+                        />
                     </Content>
                 </Layout>
             </Layout>

@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     }
 })
 interface GraphSceneProps {
+    graphId: string
     width: string
     height: string
 }
@@ -21,7 +22,7 @@ class GraphScene extends React.Component<GraphSceneProps> {
     container: HTMLDivElement
 
     componentDidMount() {
-        loadGraph('eth-h18').then((graph: Graph) => {
+        loadGraph(this.props.graphId).then((graph: Graph) => {
             const renderer = new Renderer(this.container)
             renderer.render(graph)
         })
