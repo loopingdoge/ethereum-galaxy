@@ -3,9 +3,9 @@
  * nearest to the ray in z-direction, and is closer than maxDistanceFromRay
  */
 
-export { getNearestIndex, colorNode }
+export { getNearestId, colorNode }
 
-function getNearestIndex(
+function getNearestId(
     allPoints: Int32Array,
     intersectedIndexes: any,
     ray: any,
