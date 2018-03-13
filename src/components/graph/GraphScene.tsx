@@ -9,15 +9,16 @@ import config from '../../config'
 
 const styles = StyleSheet.create({
     graphContainer: {
-        width: '100%',
+        position: 'absolute',
         height: '100%',
+        width: '100%',
+        top: 0,
+        left: 0,
         background: 'blue'
     }
 })
 interface GraphSceneProps {
     graphId: string
-    width: string
-    height: string
 }
 
 interface GraphSceneState {
