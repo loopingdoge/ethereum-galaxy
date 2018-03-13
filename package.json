@@ -12,13 +12,12 @@
     },
     "dependencies": {
         "@types/aphrodite": "^0.5.7",
-        "@types/material-ui": "^0.21.1",
-        "antd": "^3.2.3",
+        "@types/react-icons": "^2.2.5",
         "aphrodite": "^1.2.5",
-        "material-ui": "^0.20.0",
         "rafor": "^1.0.2",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
+        "react-icons": "^2.2.7",
         "react-scripts-ts": "2.13.0",
         "unrender": "https://github.com/anvaka/unrender.git"
     },

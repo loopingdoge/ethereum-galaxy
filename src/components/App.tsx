@@ -55,7 +55,7 @@ class App extends React.Component<{}, AppState> {
         const { graphId, isDrawerOpen } = this.state
         return (
             <div className={css(styles.expand)}>
-                <Navbar />
+                <Navbar openSidebar={this.toggleSidebar} />
                 <Sidebar
                     isOpen={isDrawerOpen}
                     graphs={['eth-1h', 'eth-6h']}

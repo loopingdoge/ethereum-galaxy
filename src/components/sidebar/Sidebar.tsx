@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
+import { MdMenu } from 'react-icons/lib/md'
 
 import SidebarItem from './SidebarItem'
 
@@ -11,7 +12,7 @@ const styles = StyleSheet.create({
         height: '100%',
         width: 300,
         flexDirection: 'column',
-        background: 'rgba(255, 255, 255, .5)',
+        background: 'rgba(255, 255, 255, .4)',
         zIndex: 100,
         fontFamily: 'sans-serif'
     },
@@ -23,19 +24,22 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'flex-end',
         backgroundColor: 'rgb(210, 210, 210)',
         borderBottom: '1px solid rgb(150, 150, 150)'
     },
     sidebarTitle: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 30
+        width: '100%',
+        fontSize: 24,
+        textAlign: 'center'
     },
     closeButton: {
-        float: 'right',
-        width: 48,
+        width: 56,
         height: 48,
-        background: 'blue'
+        fontSize: 24,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 
@@ -56,6 +60,7 @@ class Sidebar extends React.Component<SidebarProps> {
             closeSidebar,
             isOpen
         } = this.props
+
         return (
             <div className={css(styles.container, isOpen && styles.opened)}>
                 <div className={css(styles.sidebarHeader)}>
@@ -65,7 +70,9 @@ class Sidebar extends React.Component<SidebarProps> {
                     <div
                         className={css(styles.closeButton)}
                         onClick={closeSidebar}
-                    />
+                    >
+                        <MdMenu />
+                    </div>
                 </div>
                 {graphs.map((g: string) => (
                     <SidebarItem
