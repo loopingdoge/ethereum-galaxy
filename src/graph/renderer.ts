@@ -19,6 +19,7 @@ class Renderer {
     hitTestHandlers: HitTestHandlers
     graph: Graph
     container: HTMLDivElement
+    tick: number = 0
 
     selecedNodeId: number // highlighted node id
     seletedNodeSize: number
@@ -45,6 +46,16 @@ class Renderer {
         this._renderLinks(positions, colors)
 
         this._initHitTest()
+
+        this.renderer.onFrame(() => {
+            this.tick += 0.015
+            // this._renderLinks(positions, colors, time)
+            const scene = this.renderer.scene()
+            const sinval = (Math.sin(this.tick) + 1) * 0.4
+            scene.children[2].material.color.r = 1 - sinval
+            scene.children[2].material.color.g = 1 - sinval
+            scene.children[2].material.color.b = 1 - sinval
+        })
 
         console.log('RENDERED')
     }
@@ -137,7 +148,11 @@ class Renderer {
         this.renderer.particles(positions)
     }
 
-    _renderLinks(positions: Float32Array, colors: Float32Array) {
+    _renderLinks(
+        positions: Float32Array,
+        colors: Float32Array,
+        time: number = 1
+    ) {
         const scene = this.renderer.scene()
         const geometry = new unrender.THREE.BufferGeometry()
         const material = new unrender.THREE.LineBasicMaterial({
