@@ -24,12 +24,14 @@ const styles = StyleSheet.create({
     expand: {
         flex: 1
     },
+    appbar: {
+        backgroundColor: 'rgba(63,81,181, 0.6)'
+    },
     drawer: {
-        // TODO trovare una soluzione migliore
-        top: appBarHeight - 8,
-        paddingTop: 8,
-        height: `calc( '100%' - ${appBarHeight - 8}px )`,
-        zIndex: 1000
+        height: '100%',
+        paddingTop: appBarHeight,
+        zIndex: 1000,
+        backgroundColor: 'rgba(255, 255, 255, 0.5)'
     }
 })
 
@@ -62,6 +64,7 @@ class App extends React.Component<{}, AppState> {
     }
 
     render() {
+        const { graphId, isDrawerOpen } = this.state
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div
@@ -69,17 +72,18 @@ class App extends React.Component<{}, AppState> {
                     onClick={(e: any) => console.log('click', e)}
                 >
                     <AppBar
-                        title="My AppBar"
+                        title={graphId}
                         onLeftIconButtonClick={this.onBurgerClick}
+                        className={css(styles.appbar)}
                     />
                     <Drawer
                         containerClassName={css(styles.drawer)}
-                        open={this.state.isDrawerOpen}
+                        open={isDrawerOpen}
                     >
                         <MenuItem>Menu Item</MenuItem>
                         <MenuItem>Menu Item 2</MenuItem>
                     </Drawer>
-                    <GraphScene graphId={this.state.graphId} />
+                    <GraphScene graphId={graphId} />
                 </div>
             </MuiThemeProvider>
         )
