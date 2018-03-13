@@ -55,9 +55,13 @@ class GraphScene extends React.Component<GraphSceneProps, GraphSceneState> {
         loadGraph(graphId).then((graph: Graph) => {
             this.renderer.reset()
             const { pos, lookAt } = config.camera
-            this.renderer.cameraConfig({
+            this.renderer.configCamera({
                 pos,
                 lookAt
+            })
+            this.renderer.configHitTest({
+                onOver: (overId: number) => {},
+                onClick: (clickedId: number) => {}
             })
             this.renderer.render(graph)
         })
