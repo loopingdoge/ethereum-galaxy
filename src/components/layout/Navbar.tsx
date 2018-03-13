@@ -2,6 +2,8 @@ import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 import { MdMenu, MdSearch } from 'react-icons/lib/md'
 
+import Button from '../Button'
+
 const styles = StyleSheet.create({
     navbarContainer: {
         position: 'fixed',
@@ -18,15 +20,6 @@ const styles = StyleSheet.create({
         ':focus': {
             background: 'rgba( 256, 256, 256, .8 )'
         }
-    },
-    sidebarButton: {
-        width: 56,
-        height: 48,
-        fontSize: 24,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        cursor: 'pointer'
     },
     searchInputWrapper: {
         width: '100%',
@@ -53,9 +46,7 @@ class Navbar extends React.Component<NavbarProps> {
         const { openSidebar } = this.props
         return (
             <div className={css(styles.navbarContainer)}>
-                <div className={css(styles.sidebarButton)}>
-                    <MdMenu onClick={openSidebar} />
-                </div>
+                <Button icon={<MdMenu />} onClick={openSidebar} />
                 <form className={css(styles.searchInputWrapper)}>
                     <input
                         className={css(styles.searchInput)}
@@ -63,9 +54,10 @@ class Navbar extends React.Component<NavbarProps> {
                         defaultValue="Search address..."
                     />
                 </form>
-                <div className={css(styles.sidebarButton)}>
-                    <MdSearch />
-                </div>
+                <Button
+                    icon={<MdSearch />}
+                    onClick={() => console.log('TODO search')}
+                />
             </div>
         )
     }

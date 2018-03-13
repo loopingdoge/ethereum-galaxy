@@ -1,13 +1,15 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
+import { MdChevronRight } from 'react-icons/lib/md'
+
+import Button from '../Button'
 
 const styles = StyleSheet.create({
     sidebarItemContainer: {
-        display: 'flex',
         height: 44,
         width: '100%',
+        display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
         fontFamily: 'sans-serif',
         color: '#fff',
         userSelect: 'none',
@@ -21,6 +23,19 @@ const styles = StyleSheet.create({
     },
     selected: {
         backgroundColor: 'rgba(200, 200, 0, .6)'
+    },
+    content: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    icon: {
+        paddingRight: 8,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 30
     }
 })
 
@@ -41,7 +56,10 @@ class SidebarItem extends React.Component<SidebarItemProps> {
                 )}
                 onClick={() => onClick(graphId)}
             >
-                <b>{graphId}</b>
+                <div className={css(styles.content)}>{graphId}</div>
+                <div className={css(styles.icon)}>
+                    <MdChevronRight />
+                </div>
             </div>
         )
     }
