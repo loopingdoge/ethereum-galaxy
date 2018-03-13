@@ -3,7 +3,7 @@ import GraphScene from './graph/GraphScene'
 import { css, StyleSheet } from 'aphrodite'
 
 import Navbar from './layout/Navbar'
-import Sidebar from './layout/Sidebar'
+import Sidebar from './sidebar/Sidebar'
 
 const appBarHeight = 48 // TODO trovare una soluzione migliore
 
@@ -44,7 +44,7 @@ class App extends React.Component<{}, AppState> {
         })
     }
 
-    onBurgerClick = (e: any) => {
+    toggleSidebar = (e: any) => {
         this.setState({
             ...this.state,
             isDrawerOpen: !this.state.isDrawerOpen
@@ -61,6 +61,7 @@ class App extends React.Component<{}, AppState> {
                     graphs={['eth-1h', 'eth-6h']}
                     selectedGraph={graphId}
                     selectGraph={this.selectGraph}
+                    closeSidebar={this.toggleSidebar}
                 />
                 <GraphScene graphId={graphId} />
             </div>
