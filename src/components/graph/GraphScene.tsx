@@ -3,7 +3,7 @@ import { css, StyleSheet } from 'aphrodite'
 
 import loadGraph from '../../graph/loader'
 import Renderer from '../../graph/renderer'
-import { Graph } from '../../utils/types'
+import { Graph, GraphNode } from '../../utils/types'
 
 import config from '../../config'
 
@@ -60,8 +60,8 @@ class GraphScene extends React.Component<GraphSceneProps, GraphSceneState> {
                 lookAt
             })
             this.renderer.configHitTest({
-                onOver: (overId: number) => {},
-                onClick: (clickedId: number) => {}
+                onOver: (e: any, node: GraphNode) => {},
+                onClick: (e: any, node: GraphNode) => {}
             })
             this.renderer.render(graph)
         })

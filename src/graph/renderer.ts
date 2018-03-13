@@ -1,17 +1,17 @@
 import * as unrender from 'unrender'
 
-import { Graph } from '../utils/types'
+import { Graph, GraphNode } from '../utils/types'
 import { distance, computePosisitionsAndColors } from '../utils/renderer'
-import { colorNode, getNearestIndex } from '../utils/graphNode'
+import { colorNode, getNearestId } from '../utils/graphNode'
 
 import config from '../config'
 import { HexBase64BinaryEncoding } from 'crypto'
 
 export interface HitTestHandlers {
-    onOver?: (nodeId: number) => void
-    onClick?: (e: any) => void
-    onDblClick?: (e: any) => any
-    onHitTestReady?: (e: any) => any
+    onOver?: (e: any, node: GraphNode) => void
+    onClick?: (e: any, node: GraphNode) => void
+    // onDblClick?: (e: any) => any
+    // onHitTestReady?: (e: any) => any
 }
 
 class Renderer {
@@ -56,6 +56,7 @@ class Renderer {
         // hitTest.on('dblclick', handleDblClick)
         // hitTest.on('hitTestReady', adjustMovementSpeed)
     }
+
     reset() {
         this.renderer.destroy()
         this.renderer = unrender(this.container)
@@ -81,22 +82,32 @@ class Renderer {
 
     _onOver(e: any) {
         // TODO type
-        const { positions } = this.graph
+        const { positions, labels } = this.graph
         const { onOver } = this.hitTestHandlers
 
-        const nearestIndex = getNearestIndex(positions, e.indexes, e.ray, 30)
-        this._highlightNode(nearestIndex)
+        const nearestId = getNearestId(positions, e.indexes, e.ray, 30)
+        this._highlightNode(nearestId)
 
-        if (onOver) onOver(nearestIndex)
+        if (onOver) {
+            onOver(e, {
+                id: nearestId,
+                label: labels[nearestId]
+            })
+        }
     }
 
     _onClick(e: any) {
-        const { positions } = this.graph
+        const { positions, labels } = this.graph
         const { onClick } = this.hitTestHandlers
 
-        const nearestIndex = getNearestIndex(positions, e.indexes, e.ray, 30)
+        const nearestId = getNearestId(positions, e.indexes, e.ray, 30)
 
-        if (onClick) onClick(nearestIndex)
+        if (onClick) {
+            onClick(e, {
+                id: nearestId,
+                label: labels[nearestId]
+            })
+        }
     }
 
     _highlightNode(nodeIndex: number) {
