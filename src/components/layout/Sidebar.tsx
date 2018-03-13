@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         height: '100%',
         width: 300,
         flexDirection: 'column',
-        background: 'rgba(255, 255, 255, 0.5)',
+        background: 'rgba(255, 255, 255, .5)',
         zIndex: 100
     }
 })

@@ -12,14 +12,14 @@ const styles = StyleSheet.create({
         color: '#fff',
         userSelect: 'none',
         ':hover': {
-            backgroundColor: 'rgba(200, 200, 200, 0.6)'
+            backgroundColor: 'rgba(200, 200, 200, .6)'
         },
         ':active': {
-            backgroundColor: 'rgba(200, 200, 0, 0.6)'
+            backgroundColor: 'rgba(200, 200, 0, .6)'
         }
     },
     selected: {
-        backgroundColor: 'rgba(200, 200, 0, 0.6)'
+        backgroundColor: 'rgba(200, 200, 0, .6)'
     }
 })
 
