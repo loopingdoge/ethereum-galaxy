@@ -13,10 +13,10 @@
         "unrender": "https://github.com/anvaka/unrender.git"
     },
     "scripts": {
-        "start": "react-app-rewired start --scripts-version react-scripts-ts",
-        "build": "react-app-rewired build --scripts-version react-scripts-ts",
+        "start": "react-scripts-ts start --scripts-version react-scripts-ts",
+        "build": "react-scripts-ts build --scripts-version react-scripts-ts",
         "test":
-            "react-app-rewired test --env=jsdom --scripts-version react-scripts-ts",
+            "react-scripts-ts test --env=jsdom --scripts-version react-scripts-ts",
         "eject": "react-scripts-ts eject",
         "precommit": "pretty-quick --staged"
     },
@@ -28,7 +28,6 @@
         "husky": "^0.14.3",
         "prettier": "1.11.1",
         "pretty-quick": "^1.4.1",
-        "react-app-rewired": "^1.5.0",
         "ts-import-plugin": "^1.4.4",
         "typescript": "^2.7.2"
     },
