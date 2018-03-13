@@ -5,9 +5,11 @@ import { MdMenu, MdInfoOutline } from 'react-icons/lib/md'
 import SidebarItem from './SidebarItem'
 import Button from '../Button'
 
+const sidebarWidth = 300
+
 const sidebarOpenAnimation = {
     '0%': {
-        left: -300
+        left: -sidebarWidth
     },
     '100%': {
         left: 0
@@ -18,15 +20,39 @@ const sidebarCloseAnimation = {
         left: 0
     },
     '100%': {
-        left: -300
+        left: -sidebarWidth
+    }
+}
+
+const openBackdrop = {
+    '0%': {
+        backgroundColor: 'rgba(100, 100, 100, 0)'
+    },
+    '100%': {
+        backgroundColor: 'rgba(100, 100, 100, .4)'
     }
 }
 
 const styles = StyleSheet.create({
+    backdrop: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(100, 100, 100, .4)',
+        zIndex: -20,
+        animationName: [openBackdrop],
+        animationDuration: '.5s'
+    },
+    nobackdrop: {
+        width: 0,
+        height: 0
+    },
     sidebarContainer: {
         position: 'absolute',
         top: 0,
-        left: -300,
+        left: -sidebarWidth,
         height: '100%',
         width: 300,
         flexDirection: 'column',
@@ -37,7 +63,7 @@ const styles = StyleSheet.create({
         animationDuration: '.5s'
     },
     closed: {
-        left: -300
+        left: -sidebarWidth
     },
     opened: {
         left: 0,
@@ -53,7 +79,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         backgroundColor: 'rgb(60, 113, 187)',
         boxShadow:
-            'inset 1px 1px 0 rgba(0,0,0,0.1), inset 0 -1px 0 rgba(0,0,0,0.07)',
+            'inset 1px 1px 0 rgba(0,0,0, .1), inset 0 -1px 0 rgba(0,0,0, .07)',
         color: 'white'
     },
     sidebarTitle: {
@@ -88,6 +114,12 @@ class Sidebar extends React.Component<SidebarProps> {
                     isOpen ? styles.opened : styles.closed
                 )}
             >
+                <div
+                    className={css(
+                        isOpen ? styles.backdrop : styles.nobackdrop
+                    )}
+                    onClick={closeSidebar}
+                />
                 <div className={css(styles.sidebarHeader)}>
                     <Button icon={<MdMenu />} onClick={closeSidebar} />
                     <div className={css(styles.sidebarTitle)}>
