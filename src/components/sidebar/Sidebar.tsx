@@ -5,7 +5,7 @@ import { MdMenu } from 'react-icons/lib/md'
 import SidebarItem from './SidebarItem'
 
 const styles = StyleSheet.create({
-    container: {
+    sidebarContainer: {
         position: 'absolute',
         top: 0,
         left: -300,
@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
         fontSize: 24,
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        cursor: 'pointer'
     }
 })
 
@@ -62,7 +63,12 @@ class Sidebar extends React.Component<SidebarProps> {
         } = this.props
 
         return (
-            <div className={css(styles.container, isOpen && styles.opened)}>
+            <div
+                className={css(
+                    styles.sidebarContainer,
+                    isOpen && styles.opened
+                )}
+            >
                 <div className={css(styles.sidebarHeader)}>
                     <div className={css(styles.sidebarTitle)}>
                         Choose a graph

@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 
 interface AppState {
     graphId: string
-    isDrawerOpen: boolean
+    isSidebarOpen: boolean
 }
 
 class App extends React.Component<{}, AppState> {
@@ -33,7 +33,7 @@ class App extends React.Component<{}, AppState> {
         super(props)
         this.state = {
             graphId: 'eth-1h',
-            isDrawerOpen: true
+            isSidebarOpen: false
         }
     }
 
@@ -47,17 +47,17 @@ class App extends React.Component<{}, AppState> {
     toggleSidebar = (e: any) => {
         this.setState({
             ...this.state,
-            isDrawerOpen: !this.state.isDrawerOpen
+            isSidebarOpen: !this.state.isSidebarOpen
         })
     }
 
     render() {
-        const { graphId, isDrawerOpen } = this.state
+        const { graphId, isSidebarOpen } = this.state
         return (
             <div className={css(styles.expand)}>
                 <Navbar openSidebar={this.toggleSidebar} />
                 <Sidebar
-                    isOpen={isDrawerOpen}
+                    isOpen={isSidebarOpen}
                     graphs={['eth-1h', 'eth-6h']}
                     selectedGraph={graphId}
                     selectGraph={this.selectGraph}

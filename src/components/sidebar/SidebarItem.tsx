@@ -2,7 +2,7 @@ import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 
 const styles = StyleSheet.create({
-    container: {
+    sidebarItemContainer: {
         display: 'flex',
         height: 44,
         width: '100%',
@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
         fontFamily: 'sans-serif',
         color: '#fff',
         userSelect: 'none',
+        cursor: 'pointer',
         ':hover': {
             backgroundColor: 'rgba(200, 200, 200, .6)'
         },
@@ -34,7 +35,10 @@ class SidebarItem extends React.Component<SidebarItemProps> {
         const { graphId, onClick, isSelected } = this.props
         return (
             <div
-                className={css(styles.container, isSelected && styles.selected)}
+                className={css(
+                    styles.sidebarItemContainer,
+                    isSelected && styles.selected
+                )}
                 onClick={() => onClick(graphId)}
             >
                 <b>{graphId}</b>
