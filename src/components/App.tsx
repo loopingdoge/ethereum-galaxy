@@ -2,30 +2,18 @@ import * as React from 'react'
 import GraphScene from './graph/GraphScene'
 import { css, StyleSheet } from 'aphrodite'
 
-import Navbar from './Navbar'
-import Sidebar from './Sidebar'
-
-import { cyan500 } from 'material-ui/styles/colors'
-import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles'
-import { AppBar, Drawer, MenuItem } from 'material-ui'
+import Navbar from './layout/Navbar'
+import Sidebar from './layout/Sidebar'
 
 const appBarHeight = 48 // TODO trovare una soluzione migliore
-
-const muiTheme = getMuiTheme({
-    palette: {
-        textColor: cyan500
-    },
-    appBar: {
-        height: appBarHeight
-    }
-})
 
 const styles = StyleSheet.create({
     expand: {
         flex: 1
     },
-    appbar: {
-        backgroundColor: 'rgba(63,81,181, 0.6)'
+    toolbar: {
+        backgroundColor: 'rgba(63,81,181, 0.6)',
+        padding: 5
     },
     drawer: {
         height: '100%',
@@ -45,7 +33,7 @@ class App extends React.Component<{}, AppState> {
         super(props)
         this.state = {
             graphId: 'eth-1h',
-            isDrawerOpen: false
+            isDrawerOpen: true
         }
     }
 
@@ -66,26 +54,16 @@ class App extends React.Component<{}, AppState> {
     render() {
         const { graphId, isDrawerOpen } = this.state
         return (
-            <MuiThemeProvider muiTheme={muiTheme}>
-                <div
-                    className={css(styles.expand)}
-                    onClick={(e: any) => console.log('click', e)}
-                >
-                    <AppBar
-                        title={graphId}
-                        onLeftIconButtonClick={this.onBurgerClick}
-                        className={css(styles.appbar)}
-                    />
-                    <Drawer
-                        containerClassName={css(styles.drawer)}
-                        open={isDrawerOpen}
-                    >
-                        <MenuItem>Menu Item</MenuItem>
-                        <MenuItem>Menu Item 2</MenuItem>
-                    </Drawer>
-                    <GraphScene graphId={graphId} />
-                </div>
-            </MuiThemeProvider>
+            <div className={css(styles.expand)}>
+                <Navbar />
+                <Sidebar
+                    isOpen={isDrawerOpen}
+                    graphs={['eth-1h', 'eth-6h']}
+                    selectedGraph={graphId}
+                    selectGraph={this.selectGraph}
+                />
+                <GraphScene graphId={graphId} />
+            </div>
         )
     }
 }
