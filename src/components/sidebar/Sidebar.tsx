@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     },
     sidebarTitle: {
         width: '100%',
-        fontSize: 24,
+        fontSize: 22,
         textAlign: 'center'
     }
 })
@@ -123,7 +123,7 @@ class Sidebar extends React.Component<SidebarProps> {
                 <div className={css(styles.sidebarHeader)}>
                     <Button icon={<MdMenu />} onClick={closeSidebar} />
                     <div className={css(styles.sidebarTitle)}>
-                        Eth Net Viewer
+                        Ethereum Galaxy
                     </div>
                     <Button
                         icon={<MdInfoOutline />}

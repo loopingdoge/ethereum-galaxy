@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         overflow: 'hidden',
-        background: 'blue'
+        background: 'black'
     }
 })
 interface GalaxyProps {
