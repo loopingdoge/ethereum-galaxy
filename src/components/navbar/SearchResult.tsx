@@ -52,20 +52,25 @@ class SearchResult extends React.Component<
 
     render() {
         const { result } = this.state
-        const type = ''
-        return result ? (
+        let type = 'address'
+
+        if (result && !result.error && result.contractInfo) {
+            type = 'contract'
+        }
+
+        return result && !result.error ? (
             <div className={css(styles.searchResultContainer)}>
                 <div className={css(styles.resultRow)}>
                     <b>Address type:</b> {type}
                 </div>
                 <div className={css(styles.resultRow)}>
-                    <b>Balance:</b> {result.ETH.balance} ETH
+                    <b>Balance:</b> {result.ETH && result.ETH.balance} ETH
                 </div>
                 <div className={css(styles.resultRow)}>
-                    <b>Total In:</b> {result.ETH.totalIn} ETH
+                    <b>Total In:</b> {result.ETH && result.ETH.totalIn} ETH
                 </div>
                 <div className={css(styles.resultRow)}>
-                    <b>Total Out:</b> {result.ETH.totalOut} ETH
+                    <b>Total Out:</b> {result.ETH && result.ETH.totalOut} ETH
                 </div>
             </div>
         ) : (

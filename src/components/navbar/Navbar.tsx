@@ -48,14 +48,29 @@ interface NavbarProps {
 
 interface NavbarState {
     isSearching: boolean
+    searchInput: string
 }
 
 class Navbar extends React.Component<NavbarProps, NavbarState> {
     constructor(props: NavbarProps) {
         super(props)
         this.state = {
-            isSearching: false
+            isSearching: false,
+            searchInput: '0xab7c74abc0c4d48d1bdad5dcb26153fc8780f83e'
         }
+
+        this.onSearchInputChange = this.onSearchInputChange.bind(this)
+    }
+
+    onSearchInputChange(e: any) {
+        this.setState({
+            ...this.state,
+            isSearching: true,
+            searchInput:
+                e.target.value == ''
+                    ? '0xab7c74abc0c4d48d1bdad5dcb26153fc8780f83e'
+                    : e.target.value
+        })
     }
 
     search(address: string) {
@@ -68,6 +83,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
 
     render() {
         const { openSidebar } = this.props
+        const { searchInput } = this.state
         return (
             <div className={css(styles.navbarContainer)}>
                 <div className={css(styles.innerContainer)}>
@@ -76,7 +92,8 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
                         <input
                             className={css(styles.searchInput)}
                             type="text"
-                            defaultValue="Search address..."
+                            value={searchInput}
+                            onChange={this.onSearchInputChange}
                         />
                     </form>
                     <Button
@@ -85,9 +102,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
                     />
                 </div>
                 {this.state.isSearching ? (
-                    <SearchResult
-                        address={'0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe'}
-                    />
+                    <SearchResult address={searchInput} />
                 ) : null}
             </div>
         )
