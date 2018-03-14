@@ -26,7 +26,7 @@ class Renderer {
     container: HTMLDivElement
 
     pulseTime: number = 0
-    cameraState: CameraState = CameraState.Rotating
+    cameraState: CameraState
     rotationSpeed: number = 0.001
 
     selecedNodeId: number // highlighted node id
@@ -54,8 +54,36 @@ class Renderer {
         this._renderLinks(positions, colors)
 
         this._initHitTest()
-
+        this.cameraState = CameraState.Rotating
         this.renderer.onFrame(this.onFrame)
+        document.addEventListener('keydown', this.onKeyDown)
+        document.addEventListener('mousedown', this.onMouseClick)
+    }
+
+    onKeyDown = (e: KeyboardEvent) => {
+        switch (e.key.toLowerCase()) {
+            case 'w':
+            case 'a':
+            case 's':
+            case 'd':
+            case 'q':
+            case 'e':
+            case 'r':
+                this.cameraState = CameraState.Idle
+                break
+            case 't':
+                this.cameraState =
+                    this.cameraState === CameraState.Rotating
+                        ? CameraState.Idle
+                        : CameraState.Rotating
+                break
+            default:
+                break
+        }
+    }
+
+    onMouseClick = (e: MouseEvent) => {
+        this.cameraState = CameraState.Idle
     }
 
     onFrame = () => {
