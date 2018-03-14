@@ -29,6 +29,8 @@ interface AppState {
 }
 
 class App extends React.Component<{}, AppState> {
+    graphScene: GraphScene
+
     constructor(props: any) {
         super(props)
         this.state = {
@@ -45,10 +47,16 @@ class App extends React.Component<{}, AppState> {
     }
 
     toggleSidebar = (e: any) => {
-        this.setState({
-            ...this.state,
-            isSidebarOpen: !this.state.isSidebarOpen
-        })
+        const isSidebarOpen = !this.state.isSidebarOpen
+        this.setState(
+            {
+                ...this.state,
+                isSidebarOpen
+            },
+            () => {
+                // !isSidebarOpen && this.graphScene.focus()
+            }
+        )
     }
 
     render() {
@@ -63,7 +71,10 @@ class App extends React.Component<{}, AppState> {
                     selectGraph={this.selectGraph}
                     closeSidebar={this.toggleSidebar}
                 />
-                <GraphScene graphId={graphId} />
+                <GraphScene
+                    graphId={graphId}
+                    ref={(ref: GraphScene) => (this.graphScene = ref)}
+                />
             </div>
         )
     }

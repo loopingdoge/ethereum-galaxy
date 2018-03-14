@@ -69,6 +69,10 @@ class GraphScene extends React.Component<GraphSceneProps, GraphSceneState> {
         })
     }
 
+    focus() {
+        this.container.focus()
+    }
+
     render() {
         return (
             <div
