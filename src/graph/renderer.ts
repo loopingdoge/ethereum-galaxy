@@ -96,7 +96,7 @@ class Renderer {
         const { positions, labels } = this.graph
         const { onOver } = this.hitTestHandlers
 
-        const nearestId = getNearestId(positions, e.indexes, e.ray, 30)
+        const nearestId = getNearestId(positions, e.indexes || [], e.ray, 30)
         this._highlightNode(nearestId)
 
         if (onOver) {
