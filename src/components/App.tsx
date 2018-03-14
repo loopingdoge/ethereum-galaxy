@@ -2,7 +2,7 @@ import * as React from 'react'
 import Galaxy from './galaxy/Galaxy'
 import { css, StyleSheet } from 'aphrodite'
 
-import Navbar from './layout/Navbar'
+import Navbar from './navbar/Navbar'
 import Sidebar from './sidebar/Sidebar'
 
 const appBarHeight = 48 // TODO trovare una soluzione migliore
