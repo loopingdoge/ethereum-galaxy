@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
-import { MdMenu, MdSearch } from 'react-icons/lib/md'
+import { MdClose, MdMenu, MdSearch } from 'react-icons/lib/md'
 
 import Button from '../Button'
 import SearchResult from './SearchResult'
@@ -83,7 +83,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
 
     render() {
         const { openSidebar } = this.props
-        const { searchInput } = this.state
+        const { searchInput, isSearching } = this.state
         return (
             <div className={css(styles.navbarContainer)}>
                 <div className={css(styles.innerContainer)}>
@@ -96,10 +96,17 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
                             onChange={this.onSearchInputChange}
                         />
                     </form>
-                    <Button
-                        icon={<MdSearch />}
-                        onClick={() => this.search('dajkh')}
-                    />
+                    {isSearching ? (
+                        <Button
+                            icon={<MdSearch />}
+                            onClick={() => this.search('dajkh')}
+                        />
+                    ) : (
+                        <Button
+                            icon={<MdClose />}
+                            onClick={() => console.log('TODO close search')}
+                        />
+                    )}
                 </div>
                 {this.state.isSearching ? (
                     <SearchResult address={searchInput} />
