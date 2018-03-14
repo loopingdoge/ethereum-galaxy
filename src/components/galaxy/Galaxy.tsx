@@ -18,18 +18,18 @@ const styles = StyleSheet.create({
         background: 'blue'
     }
 })
-interface GraphSceneProps {
+interface GalaxyProps {
     graphId: string
 }
 
-interface GraphSceneState {
+interface GalaxyState {
     graphId: string
 }
-class GraphScene extends React.Component<GraphSceneProps, GraphSceneState> {
+class Galaxy extends React.Component<GalaxyProps, GalaxyState> {
     container: HTMLDivElement
     renderer: Renderer
 
-    constructor(props: GraphSceneProps) {
+    constructor(props: GalaxyProps) {
         super(props)
         this.state = {
             graphId: props.graphId
@@ -44,7 +44,7 @@ class GraphScene extends React.Component<GraphSceneProps, GraphSceneState> {
         }, 1)
     }
 
-    componentWillReceiveProps(newProps: GraphSceneProps) {
+    componentWillReceiveProps(newProps: GalaxyProps) {
         if (newProps.graphId !== this.props.graphId) {
             this.setState({
                 graphId: newProps.graphId
@@ -83,4 +83,4 @@ class GraphScene extends React.Component<GraphSceneProps, GraphSceneState> {
     }
 }
 
-export default GraphScene
+export default Galaxy

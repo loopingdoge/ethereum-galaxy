@@ -1,5 +1,5 @@
 import * as React from 'react'
-import GraphScene from './graph/GraphScene'
+import Galaxy from './galaxy/Galaxy'
 import { css, StyleSheet } from 'aphrodite'
 
 import Navbar from './layout/Navbar'
@@ -29,7 +29,7 @@ interface AppState {
 }
 
 class App extends React.Component<{}, AppState> {
-    graphScene: GraphScene
+    galaxy: Galaxy
 
     constructor(props: any) {
         super(props)
@@ -54,7 +54,7 @@ class App extends React.Component<{}, AppState> {
                 isSidebarOpen
             },
             () => {
-                // !isSidebarOpen && this.graphScene.focus()
+                !isSidebarOpen && this.galaxy.focus()
             }
         )
     }
@@ -71,9 +71,9 @@ class App extends React.Component<{}, AppState> {
                     selectGraph={this.selectGraph}
                     closeSidebar={this.toggleSidebar}
                 />
-                <GraphScene
+                <Galaxy
                     graphId={graphId}
-                    ref={(ref: GraphScene) => (this.graphScene = ref)}
+                    ref={(ref: Galaxy) => (this.galaxy = ref)}
                 />
             </div>
         )
