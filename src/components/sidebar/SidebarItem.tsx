@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
-import { MdChevronRight } from 'react-icons/lib/md'
+import { MdFileDownload, MdChevronRight } from 'react-icons/lib/md'
 
 import Button from '../Button'
 
@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
         height: 44,
         width: '100%',
         display: 'flex',
-        alignItems: 'center',
         fontFamily: 'sans-serif',
         color: '#fff',
         userSelect: 'none',
@@ -24,14 +23,34 @@ const styles = StyleSheet.create({
     selected: {
         backgroundColor: 'rgba(200, 200, 0, .6)'
     },
+    innerContainer: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0px 8px'
+    },
     content: {
         width: '100%',
+        height: '100%',
         display: 'flex',
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
     },
+    download: {
+        width: 44,
+        height: 44,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 24
+    },
+    name: {
+        width: '100%',
+        textAlign: 'center'
+    },
     icon: {
-        paddingRight: 8,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -54,11 +73,23 @@ class SidebarItem extends React.Component<SidebarItemProps> {
                     styles.sidebarItemContainer,
                     isSelected && styles.selected
                 )}
-                onClick={() => onClick(graphId)}
             >
-                <div className={css(styles.content)}>{graphId}</div>
-                <div className={css(styles.icon)}>
-                    <MdChevronRight />
+                <div className={css(styles.innerContainer)}>
+                    <div
+                        className={css(styles.download)}
+                        onClick={() => console.log('TODO download')}
+                    >
+                        <MdFileDownload />
+                    </div>
+                    <div
+                        className={css(styles.content)}
+                        onClick={() => onClick(graphId)}
+                    >
+                        <div className={css(styles.name)}>{graphId}</div>
+                        <div className={css(styles.icon)}>
+                            <MdChevronRight />
+                        </div>
+                    </div>
                 </div>
             </div>
         )
