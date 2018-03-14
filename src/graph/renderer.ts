@@ -14,12 +14,20 @@ export interface HitTestHandlers {
     // onHitTestReady?: (e: any) => any
 }
 
+enum CameraState {
+    Idle,
+    Rotating
+}
+
 class Renderer {
     renderer: any
     hitTestHandlers: HitTestHandlers
     graph: Graph
     container: HTMLDivElement
-    tick: number = 0
+
+    pulseTime: number = 0
+    cameraState: CameraState = CameraState.Rotating
+    rotationSpeed: number = 0.001
 
     selecedNodeId: number // highlighted node id
     seletedNodeSize: number
@@ -47,17 +55,34 @@ class Renderer {
 
         this._initHitTest()
 
-        this.renderer.onFrame(() => {
-            this.tick += 0.015
-            // this._renderLinks(positions, colors, time)
-            const scene = this.renderer.scene()
-            const sinval = (Math.sin(this.tick) + 1) * 0.4
-            scene.children[2].material.color.r = 1 - sinval
-            scene.children[2].material.color.g = 1 - sinval
-            scene.children[2].material.color.b = 1 - sinval
-        })
+        this.renderer.onFrame(this.onFrame)
+    }
 
-        console.log('RENDERED')
+    onFrame = () => {
+        this.pulseLinks()
+        if (this.cameraState === CameraState.Rotating) {
+            this.autoRotate()
+        }
+    }
+
+    pulseLinks = () => {
+        this.pulseTime += 0.015
+        const scene = this.renderer.scene()
+        const sinval = (Math.sin(this.pulseTime) + 1) * 0.4
+        scene.children[2].material.color.r = 1 - sinval
+        scene.children[2].material.color.g = 1 - sinval
+        scene.children[2].material.color.b = 1 - sinval
+    }
+
+    autoRotate = () => {
+        const camera = this.renderer.camera()
+        const x = camera.position.x
+        const z = camera.position.z
+        camera.position.x =
+            x * Math.cos(this.rotationSpeed) + z * Math.sin(this.rotationSpeed)
+        camera.position.z =
+            z * Math.cos(this.rotationSpeed) - x * Math.sin(this.rotationSpeed)
+        camera.lookAt({ x: 0, y: 0, z: 0 })
     }
 
     _initHitTest() {
