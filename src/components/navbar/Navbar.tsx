@@ -26,6 +26,9 @@ const styles = StyleSheet.create({
             background: 'rgba( 256, 256, 256, .8 )'
         }
     },
+    focused: {
+        background: 'rgba( 256, 256, 256, .8 )'
+    },
     searchInputWrapper: {
         width: '100%',
         padding: '0px 6px'
@@ -49,17 +52,23 @@ interface NavbarProps {
 interface NavbarState {
     isSearching: boolean
     searchInput: string
+    isFocused: boolean
 }
 
 class Navbar extends React.Component<NavbarProps, NavbarState> {
+    navbar: any
+
     constructor(props: NavbarProps) {
         super(props)
         this.state = {
             isSearching: false,
+            isFocused: false,
             searchInput: '0xab7c74abc0c4d48d1bdad5dcb26153fc8780f83e'
         }
 
         this.onSearchInputChange = this.onSearchInputChange.bind(this)
+        this.onFocus = this.onFocus.bind(this)
+        this.onBlur = this.onBlur.bind(this)
     }
 
     onSearchInputChange(e: any) {
@@ -73,6 +82,20 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
         })
     }
 
+    onFocus(e: any) {
+        this.setState({
+            ...this.state,
+            isFocused: true
+        })
+    }
+
+    onBlur(e: any) {
+        this.setState({
+            ...this.state,
+            isFocused: false
+        })
+    }
+
     search(address: string) {
         console.log('TODO search', address)
         this.setState({
@@ -83,10 +106,16 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
 
     render() {
         const { openSidebar } = this.props
-        const { searchInput, isSearching } = this.state
+        const { searchInput, isSearching, isFocused } = this.state
         return (
             <div className={css(styles.navbarContainer)}>
-                <div className={css(styles.innerContainer)}>
+                <div
+                    className={css(
+                        styles.innerContainer,
+                        (isFocused || isSearching) && styles.focused
+                    )}
+                    ref={(ref: any) => (this.navbar = ref)}
+                >
                     <Button icon={<MdMenu />} onClick={openSidebar} />
                     <form className={css(styles.searchInputWrapper)}>
                         <input
@@ -94,6 +123,8 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
                             type="text"
                             value={searchInput}
                             onChange={this.onSearchInputChange}
+                            onFocus={this.onFocus}
+                            onBlur={this.onBlur}
                         />
                     </form>
                     {isSearching ? (
@@ -108,9 +139,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
                         />
                     )}
                 </div>
-                {this.state.isSearching ? (
-                    <SearchResult address={searchInput} />
-                ) : null}
+                {isSearching ? <SearchResult address={searchInput} /> : null}
             </div>
         )
     }
