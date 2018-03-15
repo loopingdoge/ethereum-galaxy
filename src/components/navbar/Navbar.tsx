@@ -63,10 +63,12 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
         this.state = {
             isSearching: false,
             isFocused: false,
-            searchInput: '0xab7c74abc0c4d48d1bdad5dcb26153fc8780f83e'
+            searchInput: ''
         }
 
         this.onSearchInputChange = this.onSearchInputChange.bind(this)
+        this.onSearchStart = this.onSearchStart.bind(this)
+        this.onSearchEnd = this.onSearchEnd.bind(this)
         this.onFocus = this.onFocus.bind(this)
         this.onBlur = this.onBlur.bind(this)
     }
@@ -74,11 +76,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
     onSearchInputChange(e: any) {
         this.setState({
             ...this.state,
-            isSearching: true,
-            searchInput:
-                e.target.value == ''
-                    ? '0xab7c74abc0c4d48d1bdad5dcb26153fc8780f83e'
-                    : e.target.value
+            searchInput: e.target.value
         })
     }
 
@@ -96,11 +94,18 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
         })
     }
 
-    search(address: string) {
-        console.log('TODO search', address)
+    onSearchStart(e: any) {
         this.setState({
             ...this.state,
-            isSearching: true
+            isSearching: this.state.searchInput !== ''
+        })
+    }
+
+    onSearchEnd(e: any) {
+        this.setState({
+            ...this.state,
+            isSearching: false,
+            searchInput: ''
         })
     }
 
@@ -122,20 +127,18 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
                             className={css(styles.searchInput)}
                             type="text"
                             value={searchInput}
+                            placeholder={'Search an address..'}
                             onChange={this.onSearchInputChange}
                             onFocus={this.onFocus}
                             onBlur={this.onBlur}
                         />
                     </form>
                     {isSearching ? (
-                        <Button
-                            icon={<MdSearch />}
-                            onClick={() => this.search('dajkh')}
-                        />
+                        <Button icon={<MdClose />} onClick={this.onSearchEnd} />
                     ) : (
                         <Button
-                            icon={<MdClose />}
-                            onClick={() => console.log('TODO close search')}
+                            icon={<MdSearch />}
+                            onClick={this.onSearchStart}
                         />
                     )}
                 </div>
