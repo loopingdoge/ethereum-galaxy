@@ -35,6 +35,7 @@ class Galaxy extends React.Component<GalaxyProps, GalaxyState> {
             graphId: props.graphId
         }
         this.renderGraph = this.renderGraph.bind(this)
+        this.stopRotation = this.stopRotation.bind(this)
     }
 
     componentDidMount() {
@@ -69,6 +70,10 @@ class Galaxy extends React.Component<GalaxyProps, GalaxyState> {
         })
     }
 
+    stopRotation() {
+        this.renderer.setCameraRotate(false)
+    }
+
     focus() {
         this.container.focus()
     }
@@ -78,6 +83,7 @@ class Galaxy extends React.Component<GalaxyProps, GalaxyState> {
             <div
                 className={css(styles.graphContainer)}
                 ref={(ref: HTMLDivElement) => (this.container = ref)}
+                onClick={this.stopRotation}
             />
         )
     }

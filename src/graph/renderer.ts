@@ -57,7 +57,6 @@ class Renderer {
         this.cameraState = CameraState.Rotating
         this.renderer.onFrame(this.onFrame)
         document.addEventListener('keydown', this.onKeyDown)
-        document.addEventListener('mousedown', this.onMouseClick)
     }
 
     onKeyDown = (e: KeyboardEvent) => {
@@ -82,8 +81,12 @@ class Renderer {
         }
     }
 
-    onMouseClick = (e: MouseEvent) => {
-        this.cameraState = CameraState.Idle
+    setCameraRotate = (rotate: boolean) => {
+        if (rotate) {
+            this.cameraState = CameraState.Rotating
+        } else {
+            this.cameraState = CameraState.Idle
+        }
     }
 
     onFrame = () => {

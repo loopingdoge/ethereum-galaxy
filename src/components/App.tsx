@@ -34,7 +34,7 @@ class App extends React.Component<{}, AppState> {
     constructor(props: any) {
         super(props)
         this.state = {
-            graphId: 'eth-1h',
+            graphId: 'eth-6h',
             isSidebarOpen: false
         }
     }
