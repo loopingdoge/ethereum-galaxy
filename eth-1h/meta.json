@@ -1,0 +1,8 @@
+{
+    "date": 1520790162085,
+    "nodeCount": 17352,
+    "linkCount": 21141,
+    "nodeFile": "graphs/ngraph/eth-h18-labels.json",
+    "linkFile": "graphs/ngraph/eth-h18-links.bin",
+    "version": "1.0.1"
+}
