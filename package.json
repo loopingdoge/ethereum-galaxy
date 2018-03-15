@@ -2,13 +2,16 @@
     "name": "ethereum-visualizer",
     "version": "0.1.0",
     "private": true,
+    "homepage": "http://loopingdoge.github.io/ethereum-galaxy",
     "scripts": {
         "start": "react-scripts-ts start --scripts-version react-scripts-ts",
         "build": "react-scripts-ts build --scripts-version react-scripts-ts",
         "test":
             "react-scripts-ts test --env=jsdom --scripts-version react-scripts-ts",
         "eject": "react-scripts-ts eject",
-        "precommit": "pretty-quick --staged"
+        "precommit": "pretty-quick --staged",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
     },
     "dependencies": {
         "@types/aphrodite": "^0.5.7",
@@ -27,6 +30,7 @@
         "@types/node": "^9.4.6",
         "@types/react": "^16.0.40",
         "@types/react-dom": "^16.0.4",
+        "gh-pages": "^1.1.0",
         "husky": "^0.14.3",
         "prettier": "1.11.1",
         "pretty-quick": "^1.4.1",
