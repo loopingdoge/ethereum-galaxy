@@ -29,10 +29,25 @@ const styles = StyleSheet.create({
     buttonDark: {
         color: 'black'
     },
-    keyLegend: {
+    legend: {
         width: 400,
         background: 'rgba(255, 255, 255, .8)',
-        zIndex: 100
+        zIndex: 100,
+        padding: '10px 20px',
+        fontFamily: 'sans-serif',
+        display: 'grid',
+        gridTemplateColumns: '50px auto 50px auto',
+        gridTemplateRows: '40px',
+        gridTemplateAreas: '" header header header header" '
+    },
+    legendHeader: {
+        gridArea: 'header',
+        textAlign: 'center',
+        fontSize: 18,
+        fontWeight: 600
+    },
+    key: {
+        fontWeight: 600
     }
 })
 
@@ -43,7 +58,7 @@ class KeysLegend extends React.Component<{}, KeyLegendState> {
     constructor(props: any) {
         super(props)
         this.state = {
-            isOpened: false
+            isOpened: true
         }
     }
 
@@ -69,11 +84,15 @@ class KeysLegend extends React.Component<{}, KeyLegendState> {
                     <Button icon={icon} onClick={this.toggleKeyLegend} />
                 </div>
                 {isOpened ? (
-                    <div className={css(styles.keyLegend)}>
+                    <div className={css(styles.legend)}>
+                        <div className={css(styles.legendHeader)}>Commands</div>
                         {Object.keys(keysConfig).map((key: any) => (
-                            <div key={key}>
-                                {key}: {keysConfig[key]}
-                            </div>
+                            <>
+                                <div key={key} className={css(styles.key)}>
+                                    {key}
+                                </div>
+                                <div key={`${key}-val`}>{keysConfig[key]}</div>
+                            </>
                         ))}
                     </div>
                 ) : null}
