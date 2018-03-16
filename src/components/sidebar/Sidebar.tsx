@@ -24,14 +24,14 @@ const sidebarWidth = 300
 //     }
 // }
 
-const openBackdrop = {
-    '0%': {
-        backgroundColor: 'rgba(100, 100, 100, 0)'
-    },
-    '100%': {
-        backgroundColor: 'rgba(100, 100, 100, .4)'
-    }
-}
+// const openBackdrop = {
+//     '0%': {
+//         backgroundColor: 'rgba(100, 100, 100, 0)'
+//     },
+//     '100%': {
+//         backgroundColor: 'rgba(100, 100, 100, .4)'
+//     }
+// }
 
 const styles = StyleSheet.create({
     backdrop: {
@@ -41,9 +41,9 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         backgroundColor: 'rgba(100, 100, 100, .4)',
-        zIndex: 99,
-        animationName: [openBackdrop],
-        animationDuration: '.5s'
+        zIndex: 99
+        // animationName: [openBackdrop],
+        // animationDuration: '.5s'
     },
     nobackdrop: {
         width: 0,
