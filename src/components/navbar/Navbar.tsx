@@ -41,6 +41,9 @@ const styles = StyleSheet.create({
         background: 'transparent',
         ':focus': {
             outline: 'none'
+        },
+        '::placeholder': {
+            color: 'rgba(0,0,0,.6)'
         }
     }
 })
