@@ -7,7 +7,22 @@ export const defaultConfig = {
     },
     maxVisibleDistance: 39375,
     defaultNodeColor: 0xffffffdd,
-    selectedNodeColor: 0xffff00dd // TODO non si vede
+    selectedNodeColor: 0xff0000dd, // TODO non si vede
+    keysConfig: {
+        w: 'Move forward',
+        s: 'Move backward',
+        a: 'Move left',
+        d: 'Move right',
+        q: 'Roll right',
+        e: 'Roll left',
+        up: 'Rotate up',
+        down: 'Rotate down',
+        left: 'Rotate left',
+        right: 'Rotate right',
+        r: 'Fly up',
+        f: 'Fly down',
+        t: 'Toggle rotation'
+    }
     // showLinks: true,
     // scale: 1.75,
     // manifestVersion: 0

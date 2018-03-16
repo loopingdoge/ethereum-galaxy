@@ -67,7 +67,6 @@ class Renderer {
             case 'd':
             case 'q':
             case 'e':
-            case 'r':
                 this.cameraState = CameraState.Idle
                 break
             case 't':
