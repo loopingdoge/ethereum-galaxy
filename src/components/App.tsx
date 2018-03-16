@@ -4,6 +4,7 @@ import { css, StyleSheet } from 'aphrodite'
 
 import Navbar from './navbar/Navbar'
 import Sidebar from './sidebar/Sidebar'
+import KeysLegend from './KeysLegend'
 
 const appBarHeight = 48 // TODO trovare una soluzione migliore
 
@@ -71,6 +72,7 @@ class App extends React.Component<{}, AppState> {
                     selectGraph={this.selectGraph}
                     closeSidebar={this.toggleSidebar}
                 />
+                <KeysLegend />
                 <Galaxy
                     graphId={graphId}
                     ref={(ref: Galaxy) => (this.galaxy = ref)}
