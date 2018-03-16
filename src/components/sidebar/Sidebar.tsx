@@ -7,22 +7,22 @@ import Button from '../Button'
 
 const sidebarWidth = 300
 
-const sidebarOpenAnimation = {
-    '0%': {
-        transform: `translateX(0px)`
-    },
-    '100%': {
-        transform: `translateX(${sidebarWidth}px)`
-    }
-}
-const sidebarCloseAnimation = {
-    '0%': {
-        transform: `translateX(${sidebarWidth}px)`
-    },
-    '100%': {
-        transform: `translateX(0px)`
-    }
-}
+// const sidebarOpenAnimation = {
+//     '0%': {
+//         transform: `translateX(0px)`
+//     },
+//     '100%': {
+//         transform: `translateX(${sidebarWidth}px)`
+//     }
+// }
+// const sidebarCloseAnimation = {
+//     '0%': {
+//         transform: `translateX(${sidebarWidth}px)`
+//     },
+//     '100%': {
+//         transform: `translateX(0px)`
+//     }
+// }
 
 const openBackdrop = {
     '0%': {
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
         height: 0
     },
     sidebarContainer: {
+        transition: 'transform .5s',
         position: 'absolute',
         top: 0,
         left: -sidebarWidth,
@@ -61,14 +62,14 @@ const styles = StyleSheet.create({
         fontFamily: 'sans-serif'
     },
     closed: {
-        transform: `translateX(0px)`,
-        animationName: [sidebarCloseAnimation],
-        animationDuration: '.5s'
+        transform: `translateX(0px)`
+        // animationName: [sidebarCloseAnimation],
+        // animationDuration: '.5s'
     },
     opened: {
-        transform: `translateX(${sidebarWidth}px)`,
-        animationName: [sidebarOpenAnimation],
-        animationDuration: '.5s'
+        transform: `translateX(${sidebarWidth}px)`
+        // animationName: [sidebarOpenAnimation],
+        // animationDuration: '.5s'
     },
     sidebarHeader: {
         height: 64,
