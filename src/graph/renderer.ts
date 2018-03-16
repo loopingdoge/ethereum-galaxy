@@ -5,7 +5,7 @@ import { distance, computePosisitionsAndColors } from '../utils/renderer'
 import { colorNode, getNearestId } from '../utils/graphNode'
 
 import config from '../config'
-import { HexBase64BinaryEncoding } from 'crypto'
+import { isMobile } from '../utils'
 
 export interface HitTestHandlers {
     onOver?: (e: any, node: GraphNode) => void
@@ -57,6 +57,9 @@ class Renderer {
         this.cameraState = CameraState.Rotating
         this.renderer.onFrame(this.onFrame)
         document.addEventListener('keydown', this.onKeyDown)
+        if (isMobile()) {
+            this.renderer.input().toggleDragToLook()
+        }
     }
 
     onKeyDown = (e: KeyboardEvent) => {
@@ -74,6 +77,9 @@ class Renderer {
                     this.cameraState === CameraState.Rotating
                         ? CameraState.Idle
                         : CameraState.Rotating
+                break
+            case ' ':
+                this.renderer.input().toggleDragToLook()
                 break
             default:
                 break
