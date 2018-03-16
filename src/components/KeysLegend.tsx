@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
         bottom: 0,
         right: 0,
         margin: 8,
-        zIndex: 100
+        zIndex: 100,
+        borderRadius: 2
     },
     button: {
         position: 'fixed',
@@ -30,7 +31,6 @@ const styles = StyleSheet.create({
     },
     keyLegend: {
         width: 400,
-        // height: 100,
         background: 'rgba(255, 255, 255, .8)',
         zIndex: 100
     }

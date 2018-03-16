@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     innerContainer: {
         height: '100%',
         width: '100%',
+        borderRadius: 2,
         display: 'flex',
         flexDirection: 'row',
         background: 'rgba( 256, 256, 256, .3 )',
