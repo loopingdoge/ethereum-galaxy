@@ -9,18 +9,18 @@ const sidebarWidth = 300
 
 const sidebarOpenAnimation = {
     '0%': {
-        left: -sidebarWidth
+        transform: `translateX(0px)`
     },
     '100%': {
-        left: 0
+        transform: `translateX(${sidebarWidth}px)`
     }
 }
 const sidebarCloseAnimation = {
     '0%': {
-        left: 0
+        transform: `translateX(${sidebarWidth}px)`
     },
     '100%': {
-        left: -sidebarWidth
+        transform: `translateX(0px)`
     }
 }
 
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         backgroundColor: 'rgba(100, 100, 100, .4)',
-        zIndex: -20,
+        zIndex: 99,
         animationName: [openBackdrop],
         animationDuration: '.5s'
     },
@@ -58,15 +58,15 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         background: 'rgba(255, 255, 255, .4)',
         zIndex: 100,
-        fontFamily: 'sans-serif',
+        fontFamily: 'sans-serif'
+    },
+    closed: {
+        transform: `translateX(0px)`,
         animationName: [sidebarCloseAnimation],
         animationDuration: '.5s'
     },
-    closed: {
-        left: -sidebarWidth
-    },
     opened: {
-        left: 0,
+        transform: `translateX(${sidebarWidth}px)`,
         animationName: [sidebarOpenAnimation],
         animationDuration: '.5s'
     },
@@ -108,37 +108,39 @@ class Sidebar extends React.Component<SidebarProps> {
         } = this.props
 
         return (
-            <div
-                className={css(
-                    styles.sidebarContainer,
-                    isOpen ? styles.opened : styles.closed
-                )}
-            >
+            <>
                 <div
                     className={css(
                         isOpen ? styles.backdrop : styles.nobackdrop
                     )}
                     onClick={closeSidebar}
                 />
-                <div className={css(styles.sidebarHeader)}>
-                    <Button icon={<MdMenu />} onClick={closeSidebar} />
-                    <div className={css(styles.sidebarTitle)}>
-                        Ethereum Galaxy
+                <div
+                    className={css(
+                        styles.sidebarContainer,
+                        isOpen ? styles.opened : styles.closed
+                    )}
+                >
+                    <div className={css(styles.sidebarHeader)}>
+                        <Button icon={<MdMenu />} onClick={closeSidebar} />
+                        <div className={css(styles.sidebarTitle)}>
+                            Ethereum Galaxy
+                        </div>
+                        <Button
+                            icon={<MdInfoOutline />}
+                            onClick={(e: any) => console.log('TODO gotohome')}
+                        />
                     </div>
-                    <Button
-                        icon={<MdInfoOutline />}
-                        onClick={(e: any) => console.log('TODO gotohome')}
-                    />
+                    {graphs.map((g: string) => (
+                        <SidebarItem
+                            key={g}
+                            graphId={g}
+                            onClick={selectGraph}
+                            isSelected={g === selectedGraph}
+                        />
+                    ))}
                 </div>
-                {graphs.map((g: string) => (
-                    <SidebarItem
-                        key={g}
-                        graphId={g}
-                        onClick={selectGraph}
-                        isSelected={g === selectedGraph}
-                    />
-                ))}
-            </div>
+            </>
         )
     }
 }
