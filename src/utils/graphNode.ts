@@ -11,7 +11,7 @@ function getNearestId(
     ray: any,
     maxDistanceFromRay: number
 ) {
-    if (intersectedIndexes.length === 0) {
+    if (!intersectedIndexes || intersectedIndexes.length === 0) {
         return
     }
 
