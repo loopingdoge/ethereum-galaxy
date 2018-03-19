@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         position: 'fixed',
         bottom: 0,
         right: 0,
-        margin: 8,
+        margin: 16,
         zIndex: 100,
         borderRadius: 2
     },
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         position: 'fixed',
         bottom: 0,
         right: 0,
-        margin: 8,
+        margin: 16,
         color: 'white',
         opacity: 0.4,
         ':hover': {
