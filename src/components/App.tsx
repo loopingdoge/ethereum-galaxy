@@ -8,7 +8,7 @@ import Sidebar from './sidebar/Sidebar'
 import KeysLegend from './KeysLegend'
 import config from '../config'
 
-const appBarHeight = 48 // TODO trovare una soluzione migliore
+const appBarHeight = 48
 
 const styles = StyleSheet.create({
     expand: {
@@ -42,7 +42,7 @@ class App extends React.Component<{}, AppState> {
             graphId: config.defaultGraph,
             isSidebarOpen: false,
             searchInput: undefined,
-            isLegendOpen: false
+            isLegendOpen: true
         }
 
         document.addEventListener('click', this.onClick)
@@ -85,7 +85,7 @@ class App extends React.Component<{}, AppState> {
         if (isLegendOpen !== open) {
             this.setState({
                 ...this.state,
-                isLegendOpen
+                isLegendOpen: open
             })
         }
     }
