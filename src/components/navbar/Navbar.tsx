@@ -51,11 +51,12 @@ const styles = StyleSheet.create({
 
 interface NavbarProps {
     openSidebar: (e: any) => void
+    searchInput?: string
 }
 
 interface NavbarState {
-    isSearching: boolean
     searchInput: string
+    isSearching: boolean
     isFocused: boolean
 }
 
@@ -67,7 +68,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
         this.state = {
             isSearching: false,
             isFocused: false,
-            searchInput: ''
+            searchInput: props.searchInput || ''
         }
 
         this.onSearchInputChange = this.onSearchInputChange.bind(this)
@@ -75,6 +76,17 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
         this.onSearchEnd = this.onSearchEnd.bind(this)
         this.onFocus = this.onFocus.bind(this)
         this.onBlur = this.onBlur.bind(this)
+    }
+
+    componentWillReceiveProps(newProps: NavbarProps) {
+        const { searchInput } = this.state
+        if (newProps.searchInput !== searchInput) {
+            this.setState({
+                ...this.state,
+                searchInput: newProps.searchInput || '',
+                isSearching: newProps.searchInput !== undefined
+            })
+        }
     }
 
     onSearchInputChange(e: any) {

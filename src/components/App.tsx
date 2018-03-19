@@ -2,6 +2,7 @@ import * as React from 'react'
 import Galaxy from './galaxy/Galaxy'
 import { css, StyleSheet } from 'aphrodite'
 
+import { GraphNode } from '../utils/types'
 import Navbar from './navbar/Navbar'
 import Sidebar from './sidebar/Sidebar'
 import KeysLegend from './KeysLegend'
@@ -28,6 +29,7 @@ const styles = StyleSheet.create({
 interface AppState {
     graphId: string
     isSidebarOpen: boolean
+    searchInput?: string
 }
 
 class App extends React.Component<{}, AppState> {
@@ -37,7 +39,8 @@ class App extends React.Component<{}, AppState> {
         super(props)
         this.state = {
             graphId: config.defaultGraph,
-            isSidebarOpen: false
+            isSidebarOpen: false,
+            searchInput: undefined
         }
     }
 
@@ -45,6 +48,14 @@ class App extends React.Component<{}, AppState> {
         this.setState({
             ...this.state,
             graphId
+        })
+    }
+
+    onNodeClick = (e: any, node: GraphNode) => {
+        const { id, label } = node
+        this.setState({
+            ...this.state,
+            searchInput: label
         })
     }
 
@@ -62,10 +73,13 @@ class App extends React.Component<{}, AppState> {
     }
 
     render() {
-        const { graphId, isSidebarOpen } = this.state
+        const { graphId, isSidebarOpen, searchInput } = this.state
         return (
             <div className={css(styles.expand)}>
-                <Navbar openSidebar={this.toggleSidebar} />
+                <Navbar
+                    searchInput={searchInput}
+                    openSidebar={this.toggleSidebar}
+                />
                 <Sidebar
                     isOpen={isSidebarOpen}
                     graphs={['eth-1h', 'eth-6h', 'eth-1h-new']}
@@ -76,6 +90,7 @@ class App extends React.Component<{}, AppState> {
                 <KeysLegend />
                 <Galaxy
                     graphId={graphId}
+                    onNodeClik={this.onNodeClick}
                     ref={(ref: Galaxy) => (this.galaxy = ref)}
                 />
             </div>

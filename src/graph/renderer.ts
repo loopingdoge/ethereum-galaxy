@@ -174,7 +174,7 @@ class Renderer {
         const { onClick } = this.hitTestHandlers
 
         const nearestId = getNearestId(positions, e.indexes, e.ray, 30) / 3
-        console.log(labels, nearestId, labels[nearestId])
+
         if (onClick) {
             onClick(e, {
                 id: nearestId,

@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
 })
 interface GalaxyProps {
     graphId: string
+    onNodeClik: (e: any, node: GraphNode) => any
 }
 
 interface GalaxyState {
@@ -64,10 +65,15 @@ class Galaxy extends React.Component<GalaxyProps, GalaxyState> {
             })
             this.renderer.configHitTest({
                 onOver: (e: any, node: GraphNode) => {},
-                onClick: (e: any, node: GraphNode) => {}
+                onClick: this._handleClick
             })
             this.renderer.render(graph)
         })
+    }
+
+    _handleClick = (e: any, node: GraphNode) => {
+        const { id, label } = node
+        this.props.onNodeClik(e, node)
     }
 
     stopRotation() {
