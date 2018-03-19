@@ -1,5 +1,6 @@
 export const defaultConfig = {
     graphsBaseUrl: '.',
+    defaultGraph: 'eth-1h-new',
     camera: {
         // pos: { x: 0, y: 0, z: 0 },
         pos: { x: 2910, y: 2910, z: 2910 },
@@ -23,9 +24,6 @@ export const defaultConfig = {
         f: 'Fly down',
         t: 'Toggle rotation'
     }
-    // showLinks: true,
-    // scale: 1.75,
-    // manifestVersion: 0
 }
 
 export default defaultConfig

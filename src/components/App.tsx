@@ -5,6 +5,7 @@ import { css, StyleSheet } from 'aphrodite'
 import Navbar from './navbar/Navbar'
 import Sidebar from './sidebar/Sidebar'
 import KeysLegend from './KeysLegend'
+import config from '../config'
 
 const appBarHeight = 48 // TODO trovare una soluzione migliore
 
@@ -35,7 +36,7 @@ class App extends React.Component<{}, AppState> {
     constructor(props: any) {
         super(props)
         this.state = {
-            graphId: 'eth-6h',
+            graphId: config.defaultGraph,
             isSidebarOpen: false
         }
     }
@@ -67,7 +68,7 @@ class App extends React.Component<{}, AppState> {
                 <Navbar openSidebar={this.toggleSidebar} />
                 <Sidebar
                     isOpen={isSidebarOpen}
-                    graphs={['eth-1h', 'eth-6h']}
+                    graphs={['eth-1h', 'eth-6h', 'eth-1h-new']}
                     selectedGraph={graphId}
                     selectGraph={this.selectGraph}
                     closeSidebar={this.toggleSidebar}
