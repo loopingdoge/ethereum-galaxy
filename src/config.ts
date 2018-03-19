@@ -8,7 +8,7 @@ export const defaultConfig = {
     },
     maxVisibleDistance: 39375,
     defaultNodeColor: 0xffffffdd,
-    selectedNodeColor: 0xff0000dd, // TODO non si vede
+    selectedNodeColor: 0xff3333dd,
     keysConfig: {
         w: 'Move forward',
         s: 'Move backward',
