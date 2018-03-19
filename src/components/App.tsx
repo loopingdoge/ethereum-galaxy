@@ -30,6 +30,7 @@ interface AppState {
     graphId: string
     isSidebarOpen: boolean
     searchInput?: string
+    isLegendOpen: boolean
 }
 
 class App extends React.Component<{}, AppState> {
@@ -40,8 +41,11 @@ class App extends React.Component<{}, AppState> {
         this.state = {
             graphId: config.defaultGraph,
             isSidebarOpen: false,
-            searchInput: undefined
+            searchInput: undefined,
+            isLegendOpen: false
         }
+
+        document.addEventListener('click', this.onClick)
     }
 
     selectGraph = (graphId: string) => {
@@ -49,6 +53,10 @@ class App extends React.Component<{}, AppState> {
             ...this.state,
             graphId
         })
+    }
+
+    onClick = (e: any) => {
+        this.openLegend(false)
     }
 
     onNodeClick = (e: any, node: GraphNode) => {
@@ -72,8 +80,18 @@ class App extends React.Component<{}, AppState> {
         )
     }
 
+    openLegend = (open: boolean) => {
+        const { isLegendOpen } = this.state
+        if (isLegendOpen !== open) {
+            this.setState({
+                ...this.state,
+                isLegendOpen
+            })
+        }
+    }
+
     render() {
-        const { graphId, isSidebarOpen, searchInput } = this.state
+        const { graphId, isSidebarOpen, searchInput, isLegendOpen } = this.state
         return (
             <div className={css(styles.expand)}>
                 <Navbar
@@ -87,7 +105,7 @@ class App extends React.Component<{}, AppState> {
                     selectGraph={this.selectGraph}
                     closeSidebar={this.toggleSidebar}
                 />
-                <KeysLegend />
+                <KeysLegend isOpen={isLegendOpen} />
                 <Galaxy
                     graphId={graphId}
                     onNodeClik={this.onNodeClick}

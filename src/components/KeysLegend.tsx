@@ -51,39 +51,50 @@ const styles = StyleSheet.create({
     }
 })
 
-interface KeyLegendState {
-    isOpened: boolean
+interface KeyLegendProps {
+    isOpen: boolean
 }
-class KeysLegend extends React.Component<{}, KeyLegendState> {
+
+interface KeyLegendState {
+    isOpen: boolean
+}
+class KeysLegend extends React.Component<KeyLegendProps, KeyLegendState> {
     constructor(props: any) {
         super(props)
         this.state = {
-            isOpened: true
+            isOpen: props.isOpen
         }
     }
 
     toggleKeyLegend = (e: any) => {
-        const { isOpened } = this.state
+        const { isOpen } = this.state
         this.setState({
-            isOpened: !isOpened
+            isOpen: !isOpen
         })
     }
 
+    componentWillReceiveProps(newProps: KeyLegendProps) {
+        const { isOpen } = this.state
+        if (newProps.isOpen !== isOpen) {
+            this.setState({
+                ...this.state,
+                isOpen: newProps.isOpen
+            })
+        }
+    }
+
     render() {
-        const { isOpened } = this.state
+        const { isOpen } = this.state
         const { keysConfig } = config
-        const icon = isOpened ? <MdKeyboardHide /> : <MdKeyboard />
+        const icon = isOpen ? <MdKeyboardHide /> : <MdKeyboard />
         return (
             <div className={css(styles.keysLegendContainer)}>
                 <div
-                    className={css(
-                        styles.button,
-                        isOpened && styles.buttonDark
-                    )}
+                    className={css(styles.button, isOpen && styles.buttonDark)}
                 >
                     <Button icon={icon} onClick={this.toggleKeyLegend} />
                 </div>
-                {isOpened ? (
+                {isOpen ? (
                     <div className={css(styles.legend)}>
                         <div className={css(styles.legendHeader)}>Commands</div>
                         {Object.keys(keysConfig).map((key: any) => (
