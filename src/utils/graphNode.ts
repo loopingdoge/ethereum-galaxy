@@ -52,7 +52,7 @@ function getNearestId(
 }
 
 function colorNode(nodeId: number, colors: any, color: number) {
-    const colorOffset = nodeId / 3 * 4
+    const colorOffset = nodeId * 4
     colors[colorOffset + 0] = (color >> 24) & 0xff
     colors[colorOffset + 1] = (color >> 16) & 0xff
     colors[colorOffset + 2] = (color >> 8) & 0xff

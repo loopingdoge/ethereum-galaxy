@@ -29,8 +29,8 @@ class Renderer {
     cameraState: CameraState
     rotationSpeed: number = 0.001
 
-    selecedNodeId: number // highlighted node id
-    seletedNodeSize: number
+    selectedNodeId: number // highlighted node id
+    selectedNodeSize: number
 
     constructor(container: HTMLDivElement) {
         this.container = container
@@ -157,7 +157,8 @@ class Renderer {
         const { positions, labels } = this.graph
         const { onOver } = this.hitTestHandlers
 
-        const nearestId = getNearestId(positions, e.indexes || [], e.ray, 30)
+        const nearestId: number =
+            getNearestId(positions, e.indexes || [], e.ray, 30) / 3
         this._highlightNode(nearestId)
 
         if (onOver) {
@@ -172,8 +173,8 @@ class Renderer {
         const { positions, labels } = this.graph
         const { onClick } = this.hitTestHandlers
 
-        const nearestId = getNearestId(positions, e.indexes, e.ray, 30)
-
+        const nearestId = getNearestId(positions, e.indexes, e.ray, 30) / 3
+        console.log(labels, nearestId, labels[nearestId])
         if (onClick) {
             onClick(e, {
                 id: nearestId,
@@ -188,17 +189,17 @@ class Renderer {
         const colors = view.colors()
         const sizes = view.sizes()
 
-        if (this.selecedNodeId !== undefined) {
-            colorNode(this.selecedNodeId, colors, defaultNodeColor)
-            sizes[this.selecedNodeId / 3] = this.seletedNodeSize
+        if (this.selectedNodeId !== undefined) {
+            colorNode(this.selectedNodeId, colors, defaultNodeColor)
+            sizes[this.selectedNodeId] = this.selectedNodeSize
         }
 
-        this.selecedNodeId = nodeIndex
+        this.selectedNodeId = nodeIndex
 
-        if (this.selecedNodeId !== undefined) {
-            colorNode(this.selecedNodeId, colors, selectedNodeColor)
-            this.seletedNodeSize = sizes[this.selecedNodeId / 3]
-            sizes[this.selecedNodeId / 3] *= 1.1
+        if (this.selectedNodeId !== undefined) {
+            colorNode(this.selectedNodeId, colors, selectedNodeColor)
+            this.selectedNodeSize = sizes[this.selectedNodeId]
+            sizes[this.selectedNodeId] *= 1.1
         }
 
         view.colors(colors)
