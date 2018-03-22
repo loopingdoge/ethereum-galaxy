@@ -8,7 +8,7 @@ import SearchResult from './SearchResult'
 const styles = StyleSheet.create({
     navbarContainer: {
         position: 'fixed',
-        width: 475,
+        width: 480,
         height: 48,
         margin: '8px 0px 8px 8px',
         zIndex: 100
