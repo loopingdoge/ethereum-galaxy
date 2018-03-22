@@ -87,13 +87,17 @@ class SearchResult extends React.Component<
             <div className={css(styles.searchResultContainer)}>
                 <div className={css(styles.card)}>
                     <div className={css(styles.cardGroup)}>
-                        <b>Address </b>
-                        <div>{result.address}</div>
+                        <div className={css(styles.cardHeader)}>
+                            <b>{type}</b>
+                        </div>
+                        <div className={css(styles.cardRow)}>
+                            <div>{result.address}</div>
+                        </div>
                     </div>
                 </div>
                 <div className={css(styles.card)}>
                     <div className={css(styles.cardHeader)}>
-                        <b>Complete Overview</b>
+                        <b>General Overview</b>
                     </div>
                     <div className={css(styles.cardGroup)}>
                         <div className={css(styles.cardGroupHeader)}>
