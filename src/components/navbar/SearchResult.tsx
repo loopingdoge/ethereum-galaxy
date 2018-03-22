@@ -6,34 +6,34 @@ import { getJson } from '../../utils/xhr'
 const styles = StyleSheet.create({
     searchResultContainer: {
         width: '100%',
-        height: 400,
+        maxHeight: 500,
         background: 'rgba( 255, 255, 255, .6 )',
         fontFamily: 'sans-serif',
         color: '#333',
-        paddingTop: 1
+        padding: '1px 0px'
     },
-    innerContainer: {
+    card: {
         margin: 12,
         background: 'rgba(256, 256, 256, 0.7)',
         padding: 20
     },
-    resultHeader: {
-        fontSize: '18px',
+    cardHeader: {
+        fontSize: 17.5,
         marginBottom: 18,
         display: 'flex',
         flexDirection: 'column'
     },
-    resultGroup: {
+    cardGroup: {
         marginBottom: 16,
         display: 'flex',
         flexDirection: 'column'
     },
-    resultGroupHeader: {
+    cardGroupHeader: {
         fontSize: 17,
         fontWeight: 600,
         marginBottom: 8
     },
-    resultRow: {
+    cardRow: {
         height: 24
     }
 })
@@ -76,7 +76,7 @@ class SearchResult extends React.Component<
 
         if (result && !result.error) {
             if (result.contractInfo) {
-                type = 'Contract Address'
+                type = 'Contract'
             }
             if (result) {
                 countTxs = result.countTxs
@@ -85,34 +85,43 @@ class SearchResult extends React.Component<
 
         return result && !result.error ? (
             <div className={css(styles.searchResultContainer)}>
-                <div className={css(styles.innerContainer)}>
-                    <div className={css(styles.resultHeader)}>
-                        <b>{type}</b>
+                <div className={css(styles.card)}>
+                    <div className={css(styles.cardGroup)}>
+                        <b>Address </b>
                         <div>{result.address}</div>
                     </div>
-                    <div className={css(styles.resultGroup)}>
-                        <div className={css(styles.resultRow)}>
-                            <b>Balance:</b> {result.ETH && result.ETH.balance}{' '}
-                            ETH
+                </div>
+                <div className={css(styles.card)}>
+                    <div className={css(styles.cardHeader)}>
+                        <b>Complete Overview</b>
+                    </div>
+                    <div className={css(styles.cardGroup)}>
+                        <div className={css(styles.cardGroupHeader)}>
+                            <b>Balance</b>
+                        </div>
+                        <div className={css(styles.cardRow)}>
+                            {` ${result.ETH && result.ETH.balance} ETH`}
                         </div>
                     </div>
-                    <div className={css(styles.resultGroup)}>
-                        <div className={css(styles.resultGroupHeader)}>
-                            {countTxs} transactions
+                    <div className={css(styles.cardGroup)}>
+                        <div className={css(styles.cardGroupHeader)}>
+                            {countTxs} total transactions
                         </div>
-                        <div className={css(styles.resultRow)}>
-                            <b>Total In:</b> {result.ETH && result.ETH.totalIn}{' '}
-                            ETH
+                        <div className={css(styles.cardRow)}>
+                            {`Total In:   ${result.ETH &&
+                                result.ETH.totalIn} ETH`}
                         </div>
-                        <div className={css(styles.resultRow)}>
-                            <b>Total Out:</b>{' '}
-                            {result.ETH && result.ETH.totalOut} ETH
+                        <div className={css(styles.cardRow)}>
+                            {`Total Out:  ${result.ETH &&
+                                result.ETH.totalOut} ETH`}
                         </div>
                     </div>
                 </div>
             </div>
         ) : (
-            <div className={css(styles.searchResultContainer)}>No results</div>
+            <div className={css(styles.searchResultContainer)}>
+                <div className={css(styles.card)}>Address not found</div>
+            </div>
         )
     }
 }
