@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         backgroundColor: 'rgba(100, 100, 100, .4)',
-        zIndex: 99,
+        zIndex: 200,
         animationName: [openBackdrop],
         animationDuration: '.5s'
     },
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
         height: '100%',
         width: 300,
         flexDirection: 'column',
-        background: 'rgba(255, 255, 255, .4)',
-        zIndex: 100,
+        background: 'rgba(255, 255, 255, .8)',
+        zIndex: 200,
         fontFamily: 'sans-serif'
     },
     closed: {

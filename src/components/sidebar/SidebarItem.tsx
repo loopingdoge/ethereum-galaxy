@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         width: '100%',
         display: 'flex',
         fontFamily: 'sans-serif',
-        color: '#fff',
+        color: '#333',
         userSelect: 'none',
         cursor: 'pointer',
         ':hover': {
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
         }
     },
     selected: {
-        backgroundColor: 'rgba(200, 200, 0, .6)'
+        backgroundColor: 'rgba(200, 200, 0, .6)',
+        color: '#fff'
     },
     innerContainer: {
         width: '100%',
