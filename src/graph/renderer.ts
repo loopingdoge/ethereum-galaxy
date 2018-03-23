@@ -155,6 +155,7 @@ class Renderer {
     focusOnNode = (nodeId: number) => {
         // nodeid, callback, distanceFromtarget
         this.renderer.lookAt(nodeId * 3, null, 10)
+        this.setCameraRotate(false)
     }
 
     _onOver(e: any) {
