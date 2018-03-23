@@ -128,7 +128,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
     render() {
         const { openSidebar } = this.props
         const { searchInput, isSearching, isFocused } = this.state
-        console.log('NAVBAR', searchInput)
+
         return (
             <div className={css(styles.navbarContainer)}>
                 <div
@@ -159,7 +159,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
                         />
                     )}
                 </div>
-                <SearchResult address={searchInput} />
+                <SearchResult address={isSearching ? searchInput : ''} />
             </div>
         )
     }

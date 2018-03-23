@@ -66,7 +66,6 @@ class SearchResult extends React.Component<
             this.setState({
                 result
             })
-            console.log(result)
         })
     }
 
@@ -92,7 +91,7 @@ class SearchResult extends React.Component<
                 countTxs = result.countTxs
             }
         }
-        console.log(address)
+
         if (address === '') return null
 
         return result && !result.error ? (
