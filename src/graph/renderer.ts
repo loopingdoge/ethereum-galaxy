@@ -152,6 +152,11 @@ class Renderer {
         }
     }
 
+    focusOnNode(nodeId: number) {
+        // nodeid, callback, distanceFromtarget
+        this.renderer.lookAt(nodeId * 3, null, 10)
+    }
+
     _onOver(e: any) {
         // TODO type
         const { positions, labels } = this.graph
