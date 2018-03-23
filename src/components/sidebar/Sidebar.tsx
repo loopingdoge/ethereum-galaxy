@@ -78,6 +78,10 @@ interface SidebarProps {
 }
 
 class Sidebar extends React.Component<SidebarProps> {
+    openInfoURL(e: MouseEvent) {
+        window.open('https://github.com/loopingdoge/ethereum-galaxy', '_blank')
+    }
+
     render() {
         const {
             selectGraph,
@@ -108,7 +112,7 @@ class Sidebar extends React.Component<SidebarProps> {
                         </div>
                         <Button
                             icon={<MdInfoOutline />}
-                            onClick={(e: any) => console.log('TODO gotohome')}
+                            onClick={this.openInfoURL}
                         />
                     </div>
                     {graphs.map((g: string) => (
