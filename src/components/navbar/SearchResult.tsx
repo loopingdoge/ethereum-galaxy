@@ -135,7 +135,11 @@ class SearchResult extends React.Component<
             </div>
         ) : (
             <div className={css(styles.searchResultContainer)}>
-                <div className={css(styles.card)}>Address not found</div>
+                <div className={css(styles.card)}>
+                    {result && result.error
+                        ? 'Address not found'
+                        : 'Searching Address...'}
+                </div>
             </div>
         )
     }
