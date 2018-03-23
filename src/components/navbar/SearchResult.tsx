@@ -8,7 +8,7 @@ import { getJson } from '../../utils/xhr'
 const styles = StyleSheet.create({
     searchResultContainer: {
         width: '100%',
-        maxHeight: 500,
+        maxHeight: 600,
         background: 'rgba( 255, 255, 255, .6 )',
         fontFamily: 'sans-serif',
         color: '#333',
@@ -41,6 +41,21 @@ const styles = StyleSheet.create({
     placeholder: {
         fontWeight: 600,
         textAlign: 'center'
+    },
+    locateRow: {
+        fontSize: 18,
+        padding: 4,
+        border: '1px solid #333',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        ':hover': {
+            cursor: 'pointer',
+            background: 'rgba(255, 255, 255, .7)'
+        }
+    },
+    locateButton: {
+        paddingRight: 8
     }
 })
 
@@ -67,6 +82,15 @@ class SearchResult extends React.Component<
         }
     }
 
+    componentWillReceiveProps(newProps: SearchResultProps) {
+        if (newProps.address !== this.state.address) {
+            this.setState({
+                address: newProps.address
+            })
+            if (newProps.address !== '') this.getInfo(newProps.address)
+        }
+    }
+
     getInfo(address: string) {
         getJson(
             `https://api.ethplorer.io/getAddressInfo/${address}?apiKey=freekey`
@@ -77,13 +101,8 @@ class SearchResult extends React.Component<
         })
     }
 
-    componentWillReceiveProps(newProps: SearchResultProps) {
-        if (newProps.address !== this.state.address) {
-            this.setState({
-                address: newProps.address
-            })
-            if (newProps.address !== '') this.getInfo(newProps.address)
-        }
+    focusOnNode(nodeId: number) {
+        this.props.focusOnNode(nodeId)
     }
 
     render() {
@@ -94,8 +113,8 @@ class SearchResult extends React.Component<
         if (address === '') {
             return null
         }
-        let nodeInfo = this.props.getNodeInfo(address)
-        // TODO
+        const nodeInfo = this.props.getNodeInfo(address) //TODO nodeinfo type
+
         if (result && !result.error) {
             if (result.contractInfo) {
                 type = 'Contract'
@@ -116,14 +135,14 @@ class SearchResult extends React.Component<
                 ) : (
                     <div className={css(styles.card)}>
                         <div className={css(styles.cardGroup)}>
-                            <div className={css(styles.cardRow)}>
-                                Locate this address
-                                <Button
-                                    icon={<MdGpsFixed />}
-                                    onClick={() =>
-                                        this.props.focusOnNode(nodeInfo.id)
-                                    }
-                                />
+                            <div
+                                className={css(styles.locateRow)}
+                                onClick={() => this.focusOnNode(nodeInfo.id)}
+                            >
+                                <div className={css(styles.locateButton)}>
+                                    <MdGpsFixed />
+                                </div>
+                                <b> Locate this node</b>
                             </div>
                         </div>
                         <div className={css(styles.cardGroup)}>

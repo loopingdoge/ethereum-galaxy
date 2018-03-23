@@ -84,8 +84,8 @@ class App extends React.Component<{}, AppState> {
             if (id >= 0) {
                 nodeInfo = {
                     id,
-                    inLinks: graph.inLinks[id],
-                    outLinks: graph.outLinks[id]
+                    inLinks: graph.inLinks[id] || [],
+                    outLinks: graph.outLinks[id] || []
                 }
             }
         }
