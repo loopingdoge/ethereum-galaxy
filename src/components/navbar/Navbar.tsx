@@ -79,7 +79,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
     }
 
     componentWillReceiveProps(newProps: NavbarProps) {
-        const { searchInput } = this.state
+        const { searchInput } = this.props
         if (newProps.searchInput !== searchInput) {
             this.setState({
                 ...this.state,
@@ -128,6 +128,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
     render() {
         const { openSidebar } = this.props
         const { searchInput, isSearching, isFocused } = this.state
+        console.log('NAVBAR', searchInput)
         return (
             <div className={css(styles.navbarContainer)}>
                 <div
@@ -158,7 +159,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
                         />
                     )}
                 </div>
-                {isSearching ? <SearchResult address={searchInput} /> : null}
+                <SearchResult address={searchInput} />
             </div>
         )
     }

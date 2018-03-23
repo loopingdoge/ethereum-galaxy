@@ -43,6 +43,7 @@ interface SearchResultProps {
 }
 
 interface SearchResultState {
+    address: string
     result: any
 }
 
@@ -52,8 +53,8 @@ class SearchResult extends React.Component<
 > {
     constructor(props: SearchResultProps) {
         super(props)
-        this.getInfo(props.address)
         this.state = {
+            address: props.address,
             result: undefined
         }
     }
@@ -69,8 +70,17 @@ class SearchResult extends React.Component<
         })
     }
 
+    componentWillReceiveProps(newProps: SearchResultProps) {
+        if (newProps.address !== this.state.address) {
+            this.setState({
+                address: newProps.address
+            })
+            if (newProps.address !== '') this.getInfo(newProps.address)
+        }
+    }
+
     render() {
-        const { result } = this.state
+        const { result, address } = this.state
         let countTxs = 0
         let type = 'Address'
 
@@ -82,6 +92,8 @@ class SearchResult extends React.Component<
                 countTxs = result.countTxs
             }
         }
+        console.log(address)
+        if (address === '') return null
 
         return result && !result.error ? (
             <div className={css(styles.searchResultContainer)}>
