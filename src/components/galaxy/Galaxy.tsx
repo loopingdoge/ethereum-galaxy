@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 
-import loadGraph from '../../graph/loader'
 import Renderer from '../../graph/renderer'
 import { Graph, GraphNode } from '../../utils/types'
 
@@ -19,12 +18,13 @@ const styles = StyleSheet.create({
     }
 })
 interface GalaxyProps {
-    graphId: string
+    graph?: Graph
     onNodeClik: (e: any, node: GraphNode) => any
+    bindFocusOnNode: (focusOnNode: (nodeId: number) => void) => void
 }
 
 interface GalaxyState {
-    graphId: string
+    graph?: Graph
 }
 class Galaxy extends React.Component<GalaxyProps, GalaxyState> {
     container: HTMLDivElement
@@ -33,7 +33,7 @@ class Galaxy extends React.Component<GalaxyProps, GalaxyState> {
     constructor(props: GalaxyProps) {
         super(props)
         this.state = {
-            graphId: props.graphId
+            graph: props.graph
         }
         this.renderGraph = this.renderGraph.bind(this)
         this.stopRotation = this.stopRotation.bind(this)
@@ -42,33 +42,35 @@ class Galaxy extends React.Component<GalaxyProps, GalaxyState> {
     componentDidMount() {
         setTimeout(() => {
             this.renderer = new Renderer(this.container)
-            this.renderGraph(this.props.graphId)
+            // Used to pass the focusOnNode function to App.jsx
+            this.props.bindFocusOnNode(this.renderer.focusOnNode)
         }, 1)
     }
 
     componentWillReceiveProps(newProps: GalaxyProps) {
-        if (newProps.graphId !== this.props.graphId) {
+        const { graph } = newProps
+        if (graph !== this.props.graph) {
             this.setState({
-                graphId: newProps.graphId
+                graph
             })
-            this.renderGraph(newProps.graphId)
+            if (graph) {
+                this.renderGraph(graph)
+            }
         }
     }
 
-    renderGraph(graphId: string) {
-        loadGraph(graphId).then((graph: Graph) => {
-            this.renderer.reset()
-            const { pos, lookAt } = config.camera
-            this.renderer.configCamera({
-                pos,
-                lookAt
-            })
-            this.renderer.configHitTest({
-                onOver: (e: any, node: GraphNode) => {},
-                onClick: this._handleClick
-            })
-            this.renderer.render(graph)
+    renderGraph(graph: Graph) {
+        this.renderer.reset()
+        const { pos, lookAt } = config.camera
+        this.renderer.configCamera({
+            pos,
+            lookAt
         })
+        this.renderer.configHitTest({
+            onOver: (e: any, node: GraphNode) => {},
+            onClick: this._handleClick
+        })
+        this.renderer.render(graph)
     }
 
     _handleClick = (e: any, node: GraphNode) => {

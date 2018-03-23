@@ -2,7 +2,9 @@ import * as React from 'react'
 import Galaxy from './galaxy/Galaxy'
 import { css, StyleSheet } from 'aphrodite'
 
-import { GraphNode } from '../utils/types'
+import loadGraph from '../graph/loader'
+
+import { Graph, GraphNode } from '../utils/types'
 import Navbar from './navbar/Navbar'
 import Sidebar from './sidebar/Sidebar'
 import KeysLegend from './KeysLegend'
@@ -28,30 +30,37 @@ const styles = StyleSheet.create({
 
 interface AppState {
     graphId: string
+    graph?: Graph
     isSidebarOpen: boolean
     searchInput?: string
     isLegendOpen: boolean
 }
 
 class App extends React.Component<{}, AppState> {
-    galaxy: Galaxy
+    galaxyRef: Galaxy
+    focusOnGraphNode: (nodeId: number) => void
 
     constructor(props: any) {
         super(props)
         this.state = {
             graphId: config.defaultGraph,
+            graph: undefined,
             isSidebarOpen: false,
             searchInput: undefined,
             isLegendOpen: true
         }
 
         document.addEventListener('click', this.onClick)
+        this.selectGraph(this.state.graphId)
     }
 
     selectGraph = (graphId: string) => {
-        this.setState({
-            ...this.state,
-            graphId
+        loadGraph(graphId).then((graph: Graph) => {
+            this.setState({
+                ...this.state,
+                graphId,
+                graph
+            })
         })
     }
 
@@ -67,6 +76,31 @@ class App extends React.Component<{}, AppState> {
         })
     }
 
+    getNodeInfo = (address: string) => {
+        const { graph } = this.state
+        let nodeInfo = undefined
+        if (graph) {
+            const id = graph.labels.indexOf(address)
+            if (id >= 0) {
+                nodeInfo = {
+                    id,
+                    inLinks: graph.inLinks[id],
+                    outLinks: graph.outLinks[id]
+                }
+            }
+        }
+
+        return nodeInfo
+    }
+
+    focusOnNode = (nodeId: number) => {
+        this.focusOnGraphNode(nodeId)
+    }
+
+    bindFocusOnNode = (focusOnGraphNode: any) => {
+        this.focusOnGraphNode = focusOnGraphNode
+    }
+
     toggleSidebar = (e: any) => {
         const isSidebarOpen = !this.state.isSidebarOpen
         this.setState(
@@ -75,7 +109,7 @@ class App extends React.Component<{}, AppState> {
                 isSidebarOpen
             },
             () => {
-                !isSidebarOpen && this.galaxy.focus()
+                !isSidebarOpen && this.galaxyRef.focus()
             }
         )
     }
@@ -91,12 +125,20 @@ class App extends React.Component<{}, AppState> {
     }
 
     render() {
-        const { graphId, isSidebarOpen, searchInput, isLegendOpen } = this.state
+        const {
+            graphId,
+            graph,
+            isSidebarOpen,
+            searchInput,
+            isLegendOpen
+        } = this.state
         return (
             <div className={css(styles.expand)}>
                 <Navbar
                     searchInput={searchInput}
                     openSidebar={this.toggleSidebar}
+                    focusOnNode={this.focusOnNode}
+                    getNodeInfo={this.getNodeInfo}
                 />
                 <Sidebar
                     isOpen={isSidebarOpen}
@@ -107,9 +149,10 @@ class App extends React.Component<{}, AppState> {
                 />
                 <KeysLegend isOpen={isLegendOpen} />
                 <Galaxy
-                    graphId={graphId}
+                    graph={graph}
                     onNodeClik={this.onNodeClick}
-                    ref={(ref: Galaxy) => (this.galaxy = ref)}
+                    bindFocusOnNode={this.bindFocusOnNode}
+                    ref={(ref: Galaxy) => (this.galaxyRef = ref)}
                 />
             </div>
         )

@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
+import { MdGpsFixed } from 'react-icons/lib/md' // TODO change icon
 
+import Button from '../Button'
 import { getJson } from '../../utils/xhr'
 
 const styles = StyleSheet.create({
@@ -35,11 +37,17 @@ const styles = StyleSheet.create({
     },
     cardRow: {
         height: 24
+    },
+    placeholder: {
+        fontWeight: 600,
+        textAlign: 'center'
     }
 })
 
 interface SearchResultProps {
     address: string
+    getNodeInfo: (address: string) => any
+    focusOnNode: (nodeId: number) => void
 }
 
 interface SearchResultState {
@@ -83,6 +91,11 @@ class SearchResult extends React.Component<
         let countTxs = 0
         let type = 'Address'
 
+        if (address === '') {
+            return null
+        }
+        let nodeInfo = this.props.getNodeInfo(address)
+        // TODO
         if (result && !result.error) {
             if (result.contractInfo) {
                 type = 'Contract'
@@ -92,23 +105,53 @@ class SearchResult extends React.Component<
             }
         }
 
-        if (address === '') return null
-
         return result && !result.error ? (
             <div className={css(styles.searchResultContainer)}>
+                {!nodeInfo ? (
+                    <div className={css(styles.card)}>
+                        <div className={css(styles.placeholder)}>
+                            Address not found in this graph
+                        </div>
+                    </div>
+                ) : (
+                    <div className={css(styles.card)}>
+                        <div className={css(styles.cardGroup)}>
+                            <div className={css(styles.cardRow)}>
+                                Locate this address
+                                <Button
+                                    icon={<MdGpsFixed />}
+                                    onClick={() =>
+                                        this.props.focusOnNode(nodeInfo.id)
+                                    }
+                                />
+                            </div>
+                        </div>
+                        <div className={css(styles.cardGroup)}>
+                            <div className={css(styles.cardGroupHeader)}>
+                                {nodeInfo.inLinks.length +
+                                    nodeInfo.outLinks.length}{' '}
+                                transactions in this graph
+                            </div>
+                            <div className={css(styles.cardRow)}>
+                                {`In:   ${nodeInfo.inLinks.length}`}
+                            </div>
+                            <div className={css(styles.cardRow)}>
+                                {`Out:  ${nodeInfo.outLinks.length}`}
+                            </div>
+                        </div>
+                    </div>
+                )}
                 <div className={css(styles.card)}>
+                    <div className={css(styles.cardHeader)}>
+                        <b>General Overview</b>
+                    </div>
                     <div className={css(styles.cardGroup)}>
-                        <div className={css(styles.cardHeader)}>
+                        <div className={css(styles.cardGroupHeader)}>
                             <b>{type}</b>
                         </div>
                         <div className={css(styles.cardRow)}>
                             <div>{result.address}</div>
                         </div>
-                    </div>
-                </div>
-                <div className={css(styles.card)}>
-                    <div className={css(styles.cardHeader)}>
-                        <b>General Overview</b>
                     </div>
                     <div className={css(styles.cardGroup)}>
                         <div className={css(styles.cardGroupHeader)}>
@@ -136,9 +179,11 @@ class SearchResult extends React.Component<
         ) : (
             <div className={css(styles.searchResultContainer)}>
                 <div className={css(styles.card)}>
-                    {result && result.error
-                        ? 'Address not found'
-                        : 'Searching Address...'}
+                    <div className={css(styles.placeholder)}>
+                        {result && result.error
+                            ? 'Address not found'
+                            : 'Searching Address...'}
+                    </div>
                 </div>
             </div>
         )

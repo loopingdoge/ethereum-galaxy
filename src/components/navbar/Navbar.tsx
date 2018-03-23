@@ -52,6 +52,8 @@ const styles = StyleSheet.create({
 interface NavbarProps {
     openSidebar: (e: any) => void
     searchInput?: string
+    getNodeInfo: (address: string) => any
+    focusOnNode: (nodeId: number) => void
 }
 
 interface NavbarState {
@@ -126,7 +128,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
     }
 
     render() {
-        const { openSidebar } = this.props
+        const { openSidebar, focusOnNode, getNodeInfo } = this.props
         const { searchInput, isSearching, isFocused } = this.state
 
         return (
@@ -159,7 +161,11 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
                         />
                     )}
                 </div>
-                <SearchResult address={isSearching ? searchInput : ''} />
+                <SearchResult
+                    address={isSearching ? searchInput : ''}
+                    focusOnNode={focusOnNode}
+                    getNodeInfo={getNodeInfo}
+                />
             </div>
         )
     }

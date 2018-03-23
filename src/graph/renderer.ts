@@ -152,7 +152,7 @@ class Renderer {
         }
     }
 
-    focusOnNode(nodeId: number) {
+    focusOnNode = (nodeId: number) => {
         // nodeid, callback, distanceFromtarget
         this.renderer.lookAt(nodeId * 3, null, 10)
     }
