@@ -44,6 +44,7 @@ class Galaxy extends React.Component<GalaxyProps, GalaxyState> {
             this.renderer = new Renderer(this.container)
             // Used to pass the focusOnNode function to App.jsx
             this.props.bindFocusOnNode(this.renderer.focusOnNode)
+            // this.focus()
         }, 1)
     }
 

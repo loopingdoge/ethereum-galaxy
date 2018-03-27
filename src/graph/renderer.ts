@@ -70,6 +70,10 @@ class Renderer {
             case 'd':
             case 'q':
             case 'e':
+            case 'arrowup':
+            case 'arrowdown':
+            case 'arrowleft':
+            case 'arrowright':
                 this.cameraState = CameraState.Idle
                 break
             case 't':
