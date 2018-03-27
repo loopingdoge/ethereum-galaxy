@@ -18,7 +18,7 @@ const loadGraph = (name: string) => {
     inLinks = []
 
     const loadPositions = () => {
-        return getBinary(`${config.graphsBaseUrl}/${name}/positions.bin`).then(
+        return getBinary(`${config.ngraphUrl(name)}/positions.bin`).then(
             (buffer: Int32Array) => {
                 positions = buffer
             }
@@ -41,7 +41,7 @@ const loadGraph = (name: string) => {
     }
 
     const loadLinks = () => {
-        return getBinary(`${config.graphsBaseUrl}/${name}/links.bin`).then(
+        return getBinary(`${config.ngraphUrl(name)}/links.bin`).then(
             (buffer: Int32Array) =>
                 new Promise((resolve, reject) => {
                     asyncFor(buffer, parseLinks, () => resolve('finiti i link'))
@@ -50,7 +50,7 @@ const loadGraph = (name: string) => {
     }
 
     const loadLabels = () => {
-        return getJson(`${config.graphsBaseUrl}/${name}/labels.json`).then(
+        return getJson(`${config.ngraphUrl(name)}/labels.json`).then(
             (buffer: string[]) => (labels = buffer)
         )
     }
