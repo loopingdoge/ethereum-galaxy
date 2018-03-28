@@ -2,10 +2,12 @@ import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 import { MdMenu, MdInfoOutline } from 'react-icons/lib/md'
 
+import config from '../../config'
 import SidebarItem from './SidebarItem'
 import Button from '../Button'
 
 const sidebarWidth = 300
+const headerHeight = 64
 
 const openBackdrop = {
     '0%': {
@@ -44,6 +46,10 @@ const styles = StyleSheet.create({
         zIndex: 200,
         fontFamily: 'sans-serif'
     },
+    sidebarContent: {
+        height: `calc(100% - ${headerHeight}px)`,
+        overflowY: 'scroll'
+    },
     closed: {
         transform: `translateX(0px)`
     },
@@ -51,7 +57,7 @@ const styles = StyleSheet.create({
         transform: `translateX(${sidebarWidth}px)`
     },
     sidebarHeader: {
-        height: 64,
+        height: headerHeight,
         padding: '0px 8px',
         display: 'flex',
         flexDirection: 'row',
@@ -71,7 +77,6 @@ const styles = StyleSheet.create({
 
 interface SidebarProps {
     isOpen: boolean
-    graphs: string[]
     selectedGraph: string
     selectGraph: (graphId: string) => void
     closeSidebar: (e: any) => void
@@ -83,13 +88,9 @@ class Sidebar extends React.Component<SidebarProps> {
     }
 
     render() {
-        const {
-            selectGraph,
-            graphs,
-            selectedGraph,
-            closeSidebar,
-            isOpen
-        } = this.props
+        const { selectGraph, selectedGraph, closeSidebar, isOpen } = this.props
+
+        const { graphs } = config
 
         return (
             <>
@@ -115,14 +116,21 @@ class Sidebar extends React.Component<SidebarProps> {
                             onClick={this.openInfoURL}
                         />
                     </div>
-                    {graphs.map((g: string) => (
-                        <SidebarItem
-                            key={g}
-                            graphId={g}
-                            onClick={selectGraph}
-                            isSelected={g === selectedGraph}
-                        />
-                    ))}
+                    <div className={css(styles.sidebarContent)}>
+                        {Object.keys(graphs).map(type =>
+                            graphs[type].map((hour: any) => {
+                                const id = `${type}/${hour}`
+                                return (
+                                    <SidebarItem
+                                        key={id}
+                                        graphId={id}
+                                        onClick={selectGraph}
+                                        isSelected={id === selectedGraph}
+                                    />
+                                )
+                            })
+                        )}
+                    </div>
                 </div>
             </>
         )

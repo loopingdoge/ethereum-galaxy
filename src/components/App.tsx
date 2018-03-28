@@ -142,7 +142,6 @@ class App extends React.Component<{}, AppState> {
                 />
                 <Sidebar
                     isOpen={isSidebarOpen}
-                    graphs={['eth-1h', 'eth-6h', 'eth-1h-new']}
                     selectedGraph={graphId}
                     selectGraph={this.selectGraph}
                     closeSidebar={this.toggleSidebar}

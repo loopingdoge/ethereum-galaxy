@@ -2,6 +2,7 @@ import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 import { MdFileDownload, MdChevronRight } from 'react-icons/lib/md'
 
+import config from '../../config'
 import Button from '../Button'
 
 const styles = StyleSheet.create({
@@ -47,6 +48,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         fontSize: 24
     },
+    downloadBtn: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#333',
+        ':hover': {
+            color: 'rgb(60, 113, 187)'
+        },
+        ':visited': {
+            color: 'rgb(60, 113, 187)'
+        }
+    },
     name: {
         width: '100%',
         textAlign: 'center'
@@ -76,11 +91,14 @@ class SidebarItem extends React.Component<SidebarItemProps> {
                 )}
             >
                 <div className={css(styles.innerContainer)}>
-                    <div
-                        className={css(styles.download)}
-                        onClick={() => console.log('TODO download')}
-                    >
-                        <MdFileDownload />
+                    <div className={css(styles.download)}>
+                        <a
+                            className={css(styles.downloadBtn)}
+                            href={`${config.graphsUrl(graphId)}/graph.net`}
+                            download
+                        >
+                            <MdFileDownload />
+                        </a>
                     </div>
                     <div
                         className={css(styles.content)}
