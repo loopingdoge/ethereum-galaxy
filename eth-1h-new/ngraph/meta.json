@@ -1,0 +1,8 @@
+{
+    "date": 1521468220708,
+    "nodeCount": 14842,
+    "linkCount": 15167,
+    "nodeFile": "graphs/eth-1/15/ngraph/labels.json",
+    "linkFile": "graphs/eth-1/15/ngraph/links.bin",
+    "version": "1.0.1"
+}
