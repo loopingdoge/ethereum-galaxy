@@ -75,14 +75,16 @@ const styles = StyleSheet.create({
 })
 
 interface SidebarItemProps {
-    graphId: string
+    type: number
+    hour: number
     onClick: (graphId: string) => void
     isSelected: boolean
 }
 
 class SidebarItem extends React.Component<SidebarItemProps> {
     render() {
-        const { graphId, onClick, isSelected } = this.props
+        const { type, hour, onClick, isSelected } = this.props
+        const graphId = `eth-${type}/${hour}`
         return (
             <div
                 className={css(
@@ -104,7 +106,10 @@ class SidebarItem extends React.Component<SidebarItemProps> {
                         className={css(styles.content)}
                         onClick={() => onClick(graphId)}
                     >
-                        <div className={css(styles.name)}>{graphId}</div>
+                        <div className={css(styles.name)}>
+                            {`from ${(24 + (hour - type)) %
+                                24}:00 to ${hour}:00`}
+                        </div>
                         <div className={css(styles.icon)}>
                             <MdChevronRight />
                         </div>

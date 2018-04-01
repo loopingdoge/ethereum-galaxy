@@ -68,6 +68,17 @@ const styles = StyleSheet.create({
             'inset 1px 1px 0 rgba(0,0,0, .1), inset 0 -1px 0 rgba(0,0,0, .07)',
         color: 'white'
     },
+    sidebarGroupHeader: {
+        height: 44,
+        width: '100%',
+        fontFamily: 'sans-serif',
+        backgroundColor: 'rgba(60, 113, 187, 0.6)',
+        fontSize: 20,
+        textAlign: 'center',
+        lineHeight: '44px',
+        color: '#fff',
+        userSelect: 'none'
+    },
     sidebarTitle: {
         width: '100%',
         fontSize: 22,
@@ -117,19 +128,25 @@ class Sidebar extends React.Component<SidebarProps> {
                         />
                     </div>
                     <div className={css(styles.sidebarContent)}>
-                        {Object.keys(graphs).map(type =>
-                            graphs[type].map((hour: any) => {
-                                const id = `${type}/${hour}`
-                                return (
-                                    <SidebarItem
-                                        key={id}
-                                        graphId={id}
-                                        onClick={selectGraph}
-                                        isSelected={id === selectedGraph}
-                                    />
-                                )
-                            })
-                        )}
+                        {Object.keys(graphs).map(type => (
+                            <>
+                                <div className={css(styles.sidebarGroupHeader)}>
+                                    {`${type}h Graphs`}
+                                </div>
+                                {graphs[type].map((hour: any) => {
+                                    const id = `${type}/${hour}`
+                                    return (
+                                        <SidebarItem
+                                            key={id}
+                                            type={parseInt(type)}
+                                            hour={hour}
+                                            onClick={selectGraph}
+                                            isSelected={id === selectedGraph}
+                                        />
+                                    )
+                                })}
+                            </>
+                        ))}
                     </div>
                 </div>
             </>
