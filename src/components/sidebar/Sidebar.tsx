@@ -134,7 +134,7 @@ class Sidebar extends React.Component<SidebarProps> {
                                     {`${type}h Graphs`}
                                 </div>
                                 {graphs[type].map((hour: any) => {
-                                    const id = `${type}/${hour}`
+                                    const id = `eth-${type}/${hour}`
                                     return (
                                         <SidebarItem
                                             key={id}
