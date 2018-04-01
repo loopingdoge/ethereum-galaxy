@@ -3,7 +3,14 @@ const GRAPH_BASE_URL = 'http://raspein.portazero.it:8888/graphs'
 export const defaultConfig = {
     graphBaseUrl: GRAPH_BASE_URL,
     graphsUrl: (graphName: string) => `${GRAPH_BASE_URL}/${graphName}`,
-    ngraphUrl: (graphName: string) => `${GRAPH_BASE_URL}/${graphName}/ngraph`,
+    graphInfoUrl: (graphName: string) =>
+        `${GRAPH_BASE_URL}/${graphName}/info.json`,
+    graphPositionsUrl: (graphName: string) =>
+        `${GRAPH_BASE_URL}/${graphName}/ngraph/positions.bin`,
+    graphLinksUrl: (graphName: string) =>
+        `${GRAPH_BASE_URL}/${graphName}/ngraph/links.bin`,
+    graphLabelsUrl: (graphName: string) =>
+        `${GRAPH_BASE_URL}/${graphName}/ngraph/labels.json`,
     graphs: {
         'eth-1': [
             0,
@@ -33,7 +40,7 @@ export const defaultConfig = {
         ],
         'eth-4': [0, 4, 8, 12, 16, 20]
     },
-    defaultGraph: 'eth-1/0',
+    defaultGraph: 'eth-1/19',
     camera: {
         // pos: { x: 0, y: 0, z: 0 },
         pos: { x: 2910, y: 2910, z: 2910 },

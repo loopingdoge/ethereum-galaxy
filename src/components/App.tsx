@@ -3,12 +3,13 @@ import Galaxy from './galaxy/Galaxy'
 import { css, StyleSheet } from 'aphrodite'
 
 import loadGraph from '../graph/loader'
-
 import { Graph, GraphNode } from '../utils/types'
-import Navbar from './navbar/Navbar'
-import Sidebar from './sidebar/Sidebar'
-import KeysLegend from './KeysLegend'
 import config from '../config'
+
+import Sidebar from './sidebar/Sidebar'
+import Navbar from './navbar/Navbar'
+import GalaxyInfo from './GalaxyInfo'
+import KeysLegend from './KeysLegend'
 
 const appBarHeight = 48
 
@@ -134,18 +135,19 @@ class App extends React.Component<{}, AppState> {
         } = this.state
         return (
             <div className={css(styles.expand)}>
-                <Navbar
-                    searchInput={searchInput}
-                    openSidebar={this.toggleSidebar}
-                    focusOnNode={this.focusOnNode}
-                    getNodeInfo={this.getNodeInfo}
-                />
                 <Sidebar
                     isOpen={isSidebarOpen}
                     selectedGraph={graphId}
                     selectGraph={this.selectGraph}
                     closeSidebar={this.toggleSidebar}
                 />
+                <Navbar
+                    searchInput={searchInput}
+                    openSidebar={this.toggleSidebar}
+                    focusOnNode={this.focusOnNode}
+                    getNodeInfo={this.getNodeInfo}
+                />
+                <GalaxyInfo graph={graph} />
                 <KeysLegend isOpen={isLegendOpen} />
                 <Galaxy
                     graph={graph}
