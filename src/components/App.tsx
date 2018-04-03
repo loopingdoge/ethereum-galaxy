@@ -43,8 +43,14 @@ class App extends React.Component<{}, AppState> {
 
     constructor(props: any) {
         super(props)
+
+        // Selects the 4h graph closest to the current time
+        const latestIndex = Math.trunc(new Date().getHours() / 4)
+        const selectedLabel = config.graphs[4][latestIndex]
+        const graphId = `eth-4/${selectedLabel}`
+
         this.state = {
-            graphId: config.defaultGraph,
+            graphId,
             graph: undefined,
             isSidebarOpen: false,
             searchInput: undefined,

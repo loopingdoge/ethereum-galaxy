@@ -94,14 +94,27 @@ interface SidebarProps {
 }
 
 class Sidebar extends React.Component<SidebarProps> {
+    menuItems: any = {}
+
+    constructor(props: SidebarProps) {
+        super(props)
+        const { graphs } = config
+        const time = new Date().getHours()
+
+        Object.keys(config.graphs).map(range => {
+            const first = Math.trunc(time / parseInt(range))
+            this.menuItems[range] = graphs[range]
+                .slice(first)
+                .concat(graphs[range].slice(0, first))
+        })
+    }
+
     openInfoURL(e: MouseEvent) {
         window.open('https://github.com/loopingdoge/ethereum-galaxy', '_blank')
     }
 
     render() {
         const { selectGraph, selectedGraph, closeSidebar, isOpen } = this.props
-
-        const { graphs } = config
 
         return (
             <>
@@ -128,25 +141,33 @@ class Sidebar extends React.Component<SidebarProps> {
                         />
                     </div>
                     <div className={css(styles.sidebarContent)}>
-                        {Object.keys(graphs).map(type => (
-                            <>
-                                <div className={css(styles.sidebarGroupHeader)}>
-                                    {`${type}h Graphs`}
-                                </div>
-                                {graphs[type].map((hour: any) => {
-                                    const id = `eth-${type}/${hour}`
-                                    return (
-                                        <SidebarItem
-                                            key={id}
-                                            type={parseInt(type)}
-                                            hour={hour}
-                                            onClick={selectGraph}
-                                            isSelected={id === selectedGraph}
-                                        />
-                                    )
-                                })}
-                            </>
-                        ))}
+                        {Object.keys(this.menuItems)
+                            .sort((a, b) => parseInt(b) - parseInt(a))
+                            .map(range => (
+                                <>
+                                    <div
+                                        className={css(
+                                            styles.sidebarGroupHeader
+                                        )}
+                                    >
+                                        {`${range}h Graphs`}
+                                    </div>
+                                    {this.menuItems[range].map((hour: any) => {
+                                        const id = `eth-${range}/${hour}`
+                                        return (
+                                            <SidebarItem
+                                                key={id}
+                                                type={parseInt(range)}
+                                                hour={hour}
+                                                onClick={selectGraph}
+                                                isSelected={
+                                                    id === selectedGraph
+                                                }
+                                            />
+                                        )
+                                    })}
+                                </>
+                            ))}
                     </div>
                 </div>
             </>
