@@ -40,7 +40,6 @@ export const defaultConfig = {
         ],
         4: [0, 4, 8, 12, 16, 20]
     },
-    defaultGraph: 'eth-1/0',
     camera: {
         // pos: { x: 0, y: 0, z: 0 },
         pos: { x: 2910, y: 2910, z: 2910 },
