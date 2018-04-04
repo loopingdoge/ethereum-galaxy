@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
-import { MdClose, MdMenu, MdSearch } from 'react-icons/lib/md'
+import { MdClose, MdMenu, MdSearch, MdGpsFixed } from 'react-icons/lib/md'
 
 import Button from '../Button'
 import SearchResult from './SearchResult'
@@ -130,7 +130,9 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
     render() {
         const { openSidebar, focusOnNode, getNodeInfo } = this.props
         const { searchInput, isSearching, isFocused } = this.state
-
+        const nodeInfo = isSearching
+            ? this.props.getNodeInfo(searchInput)
+            : null
         return (
             <div className={css(styles.navbarContainer)}>
                 <div
@@ -152,6 +154,12 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
                             onBlur={this.onBlur}
                         />
                     </form>
+                    {nodeInfo && (
+                        <Button
+                            icon={<MdGpsFixed />}
+                            onClick={() => focusOnNode(nodeInfo.id)}
+                        />
+                    )}
                     {isSearching ? (
                         <Button icon={<MdClose />} onClick={this.onSearchEnd} />
                     ) : (

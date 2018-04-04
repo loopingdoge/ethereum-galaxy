@@ -68,6 +68,17 @@ const styles = StyleSheet.create({
             'inset 1px 1px 0 rgba(0,0,0, .1), inset 0 -1px 0 rgba(0,0,0, .07)',
         color: 'white'
     },
+    sidebarGroupHeader: {
+        height: 44,
+        width: '100%',
+        fontFamily: 'sans-serif',
+        backgroundColor: 'rgba(60, 113, 187, 0.6)',
+        fontSize: 20,
+        textAlign: 'center',
+        lineHeight: '44px',
+        color: '#fff',
+        userSelect: 'none'
+    },
     sidebarTitle: {
         width: '100%',
         fontSize: 22,
@@ -83,14 +94,27 @@ interface SidebarProps {
 }
 
 class Sidebar extends React.Component<SidebarProps> {
+    menuItems: any = {}
+
+    constructor(props: SidebarProps) {
+        super(props)
+        const { graphs } = config
+        const time = new Date().getHours()
+
+        Object.keys(config.graphs).map(range => {
+            const first = Math.trunc(time / parseInt(range))
+            this.menuItems[range] = graphs[range]
+                .slice(first)
+                .concat(graphs[range].slice(0, first))
+        })
+    }
+
     openInfoURL(e: MouseEvent) {
         window.open('https://github.com/loopingdoge/ethereum-galaxy', '_blank')
     }
 
     render() {
         const { selectGraph, selectedGraph, closeSidebar, isOpen } = this.props
-
-        const { graphs } = config
 
         return (
             <>
@@ -117,19 +141,33 @@ class Sidebar extends React.Component<SidebarProps> {
                         />
                     </div>
                     <div className={css(styles.sidebarContent)}>
-                        {Object.keys(graphs).map(type =>
-                            graphs[type].map((hour: any) => {
-                                const id = `${type}/${hour}`
-                                return (
-                                    <SidebarItem
-                                        key={id}
-                                        graphId={id}
-                                        onClick={selectGraph}
-                                        isSelected={id === selectedGraph}
-                                    />
-                                )
-                            })
-                        )}
+                        {Object.keys(this.menuItems)
+                            .sort((a, b) => parseInt(b) - parseInt(a))
+                            .map(range => (
+                                <>
+                                    <div
+                                        className={css(
+                                            styles.sidebarGroupHeader
+                                        )}
+                                    >
+                                        {`${range}h Graphs`}
+                                    </div>
+                                    {this.menuItems[range].map((hour: any) => {
+                                        const id = `eth-${range}/${hour}`
+                                        return (
+                                            <SidebarItem
+                                                key={id}
+                                                type={parseInt(range)}
+                                                hour={hour}
+                                                onClick={selectGraph}
+                                                isSelected={
+                                                    id === selectedGraph
+                                                }
+                                            />
+                                        )
+                                    })}
+                                </>
+                            ))}
                     </div>
                 </div>
             </>

@@ -2,7 +2,7 @@
     "name": "ethereum-visualizer",
     "version": "0.1.0",
     "private": true,
-    "homepage": "http://loopingdoge.github.io/ethereum-galaxy",
+    "homepage": "http://www.devid.io/ethereum-galaxy",
     "scripts": {
         "start": "react-scripts-ts start --scripts-version react-scripts-ts",
         "build": "react-scripts-ts build --scripts-version react-scripts-ts",
@@ -17,6 +17,7 @@
         "@types/aphrodite": "^0.5.7",
         "@types/react-icons": "^2.2.5",
         "aphrodite": "^1.2.5",
+        "npm": "^5.8.0",
         "rafor": "^1.0.2",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",

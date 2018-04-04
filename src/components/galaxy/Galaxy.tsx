@@ -7,7 +7,7 @@ import { Graph, GraphNode } from '../../utils/types'
 import config from '../../config'
 
 const styles = StyleSheet.create({
-    graphContainer: {
+    galaxyContainer: {
         position: 'absolute',
         height: '100%',
         width: '100%',
@@ -90,7 +90,7 @@ class Galaxy extends React.Component<GalaxyProps, GalaxyState> {
     render() {
         return (
             <div
-                className={css(styles.graphContainer)}
+                className={css(styles.galaxyContainer)}
                 ref={(ref: HTMLDivElement) => (this.container = ref)}
                 onClick={this.stopRotation}
             />

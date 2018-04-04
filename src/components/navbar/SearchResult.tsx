@@ -114,6 +114,7 @@ class SearchResult extends React.Component<
             return null
         }
         const nodeInfo = this.props.getNodeInfo(address) //TODO nodeinfo type
+        // TODO nodeinfo as props?
 
         if (result && !result.error) {
             if (result.contractInfo) {
@@ -134,7 +135,7 @@ class SearchResult extends React.Component<
                     </div>
                 ) : (
                     <div className={css(styles.card)}>
-                        <div className={css(styles.cardGroup)}>
+                        {/* <div className={css(styles.cardGroup)}>
                             <div
                                 className={css(styles.locateRow)}
                                 onClick={() => this.focusOnNode(nodeInfo.id)}
@@ -144,7 +145,7 @@ class SearchResult extends React.Component<
                                 </div>
                                 <b> Locate this node</b>
                             </div>
-                        </div>
+                        </div> */}
                         <div className={css(styles.cardGroup)}>
                             <div className={css(styles.cardGroupHeader)}>
                                 {nodeInfo.inLinks.length +
